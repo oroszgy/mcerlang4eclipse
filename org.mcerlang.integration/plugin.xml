@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="org.mcerlang.integration.functions.inserthas_probe_state2"
+            name="Functions">
+      </category>
+      <command
+            category="org.mcerlang.integration.functions"
+            id="org.mcerlang.integration.functions.inserthas_probe_state2"
+            name="Insert has_probe_state/2">
+      </command>
+      <category
+            id="org.mcerlang.integration.structures"
+            name="Structures">
+      </category>
+      <category
+            id="org.mcerlang.integration.miscallenious"
+            name="Miscallenious">
+      </category>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.mcerlang.integration.handlers.FunctionHandlers"
+            commandId="org.mcerlang.integration.functions.inserthas_probe_state2">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               label="McErlang"
+               mnemonic="M">
+               	<visibleWhen>
+					<with variable="activeEditorId">
+						<or>
+							<equals value="org.erlide.ui.editors.erl.ErlangEditor" />
+						</or>
+					</with>
+				</visibleWhen>
+                <menu
+                      label="Functions"
+                      mnemonic="F">
+                   <menu
+                         label="Probe States"
+                         mnemonic="S">
+                      <command
+                            commandId="org.mcerlang.integration.functions.inserthas_probe_state2"
+                            style="push">
+                      </command>
+                   </menu>
+                   <menu
+                         label="Probe Actions"
+                         mnemonic="A">
+                   </menu>
+                   <menu
+                         label="Node Dictionary"
+                         mnemonic="N">
+                   </menu>
+                   <menu
+                         label="Global Dictionary"
+                         mnemonic="G">
+                   </menu>
+                </menu>
+                <menu
+                      label="Structures"
+                      mnemonic="S">
+                </menu>
+                <menu
+                      label="Miscallenious"
+                      mnemonic="M">
+                </menu>
+         </menu>
+      </menuContribution>
+   </extension>
+
+</plugin>

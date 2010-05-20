@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: McErlang integration plugin
+Bundle-SymbolicName: org.mcerlang.integration;singleton:=true
+Bundle-Version: 0.1.0.qualifier
+Bundle-Activator: org.mcerlang.integration.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources;bundle-version="3.5.2"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
