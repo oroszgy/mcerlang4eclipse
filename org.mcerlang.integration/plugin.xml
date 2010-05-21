@@ -3,29 +3,295 @@
 <plugin>
    <extension
          point="org.eclipse.ui.commands">
+<!-- Function -->
       <category
-            id="org.mcerlang.integration.functions.inserthas_probe_state2"
+            id="org.mcerlang.integration.functions"
             name="Functions">
       </category>
+      <!-- Probe states -->
       <command
-            category="org.mcerlang.integration.functions"
+            categoryId="org.mcerlang.integration.functions"
             id="org.mcerlang.integration.functions.inserthas_probe_state2"
             name="Insert has_probe_state/2">
       </command>
+      <command
+            categoryId="org.mcerlang.integration.functions"
+            id="org.mcerlang.integration.functions.insertget_probe_state2"
+            name="Insert get_probe_state/2">
+      </command>
+      <command
+            categoryId="org.mcerlang.integration.functions"
+            id="org.mcerlang.integration.functions.insertget_probe_state1"
+            name="Insert get_probe_state/1">
+      </command>
+      <command
+            categoryId="org.mcerlang.integration.functions"
+            id="org.mcerlang.integration.functions.insertdel_probe_state1"
+            name="Insert del_probe_state/1">
+      </command>
+      <command
+            categoryId="org.mcerlang.integration.functions"
+            id="org.mcerlang.integration.functions.insertprobe_state2"
+            name="Insert probe_state/2">
+      </command>
+      <command
+            categoryId="org.mcerlang.integration.functions"
+            id="org.mcerlang.integration.functions.insertprobe_state1"
+            name="Insert probe_state/1">
+      </command>
+      <!-- Probe actions -->
+      <command
+            categoryId="org.mcerlang.integration.functions"
+            id="org.mcerlang.integration.functions.generatehas_probe_action1"
+            name="Generate has_probe_action/1">
+      </command>
+      <command
+            categoryId="org.mcerlang.integration.functions"
+            id="org.mcerlang.integration.functions.insertmatch_probe_label1"
+            name="Insert match_probe_label/1">
+      </command>
+      <command
+            categoryId="org.mcerlang.integration.functions"
+            id="org.mcerlang.integration.functions.insertprobe_label1"
+            name="Insert probe_label/1">
+      </command>
+      <command
+            categoryId="org.mcerlang.integration.functions"
+            id="org.mcerlang.integration.functions.insertis_probe1"
+            name="Insert is_probe/1">
+      </command>
+      <command
+            categoryId="org.mcerlang.integration.functions"
+            id="org.mcerlang.integration.functions.insertprobe2"
+            name="Insert probe/2">
+      </command>
+      <command
+            categoryId="org.mcerlang.integration.functions"
+            id="org.mcerlang.integration.functions.insertprobe1"
+            name="Insert probe/2">
+      </command>
+      <!--Node dictionary -->
+      <command
+            categoryId="org.mcerlang.integration.functions"
+            id="org.mcerlang.integration.functions.insertnerase0"
+            name="Insert nerase/0">
+      </command>
+      <command
+            categoryId="org.mcerlang.integration.functions"
+            id="org.mcerlang.integration.functions.insertnput2"
+            name="Insert nput/2">
+      </command>
+      <command
+            categoryId="org.mcerlang.integration.functions"
+            id="org.mcerlang.integration.functions.insertget1 "
+            name="Insert get/1 ">
+      </command>
+      <command
+            categoryId="org.mcerlang.integration.functions"
+            id="org.mcerlang.integration.functions.insertnerase0_2"
+            name="Insert nerase/0">
+      </command>
+      <command
+            categoryId="org.mcerlang.integration.functions"
+            id="org.mcerlang.integration.functions.insertget0"
+            name="Insert get/0">
+      </command>
+      <!-- Global dictionary-->
+      <command
+            categoryId="org.mcerlang.integration.functions"
+            id="org.mcerlang.integration.functions.insertgerase0_2"
+            name="Insert gerase/0">
+      </command>
+      <command
+            categoryId="org.mcerlang.integration.functions"
+            id="org.mcerlang.integration.functions.insertgerase0"
+            name="Insert gerase/0">
+      </command>
+      <command
+            categoryId="org.mcerlang.integration.functions"
+            id="org.mcerlang.integration.functions.insertgput2"
+            name="Insert gput/2">
+      </command>
+      <command
+            categoryId="org.mcerlang.integration.functions"
+            id="org.mcerlang.integration.functions.insertgget1"
+            name="Insert gget/1 ">
+      </command>
+      <command
+            categoryId="org.mcerlang.integration.functions"
+            id="org.mcerlang.integration.functions.insertgget0"
+            name="Insert gget/0">
+      </command>
+<!-- Structures -->
       <category
             id="org.mcerlang.integration.structures"
             name="Structures">
       </category>
+      <command
+            categoryId="org.mcerlang.integration.structures"
+            id="org.mcerlang.integration.structures.createmonitor"
+            name="Create monitor">
+      </command>
+      <command
+            categoryId="org.mcerlang.integration.structures"
+            id="org.mcerlang.integration.structures.createdeadlockmonitor"
+            name="Create deadlock monitor">
+      </command>
+<!-- Miscallenious -->      
       <category
             id="org.mcerlang.integration.miscallenious"
             name="Miscallenious">
       </category>
+      <command
+            categoryId="org.mcerlang.integration.miscallenious"
+            id="org.mcerlang.integration.miscallenious.insertlanguage"
+            name="Insert language">
+      </command>
+      <command
+            categoryId="org.mcerlang.integration.miscallenious"
+            id="org.mcerlang.integration.miscallenious.insertchoicestatement"
+            name="Insert Choice Statement">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
+      <!-- Probe states -->
       <handler
-            class="org.mcerlang.integration.handlers.FunctionHandlers"
-            commandId="org.mcerlang.integration.functions.inserthas_probe_state2">
+		class="org.mcerlang.integration.handlers.FunctionHandlers"
+            commandId="org.mcerlang.integration.functions.inserthas_probe_state2"
+            >
+      </handler>
+      <handler
+		class="org.mcerlang.integration.handlers.FunctionHandlers"
+            commandId="org.mcerlang.integration.functions.insertget_probe_state2"
+            >
+      </handler>
+      <handler
+		class="org.mcerlang.integration.handlers.FunctionHandlers"
+            commandId="org.mcerlang.integration.functions.insertget_probe_state1"
+            >
+      </handler>
+      <handler
+		class="org.mcerlang.integration.handlers.FunctionHandlers"
+            commandId="org.mcerlang.integration.functions.insertdel_probe_state1"
+            >
+      </handler>
+      <handler
+		class="org.mcerlang.integration.handlers.FunctionHandlers"
+            commandId="org.mcerlang.integration.functions.insertprobe_state2"
+            >
+      </handler>
+      <handler
+		class="org.mcerlang.integration.handlers.FunctionHandlers"
+            commandId="org.mcerlang.integration.functions.insertprobe_state1"
+            >
+      </handler>
+      <!-- Probe actions -->
+      <handler
+		class="org.mcerlang.integration.handlers.FunctionHandlers"
+            commandId="org.mcerlang.integration.functions.generatehas_probe_action1"
+            >
+      </handler>
+      <handler
+		class="org.mcerlang.integration.handlers.FunctionHandlers"
+            commandId="org.mcerlang.integration.functions.insertmatch_probe_label1"
+            >
+      </handler>
+      <handler
+		class="org.mcerlang.integration.handlers.FunctionHandlers"
+            commandId="org.mcerlang.integration.functions.insertprobe_label1"
+            >
+      </handler>
+      <handler
+		class="org.mcerlang.integration.handlers.FunctionHandlers"
+            commandId="org.mcerlang.integration.functions.insertis_probe1"
+            >
+      </handler>
+      <handler
+		class="org.mcerlang.integration.handlers.FunctionHandlers"
+            commandId="org.mcerlang.integration.functions.insertprobe2"
+            >
+      </handler>
+      <handler
+		class="org.mcerlang.integration.handlers.FunctionHandlers"
+            commandId="org.mcerlang.integration.functions.insertprobe1"
+            >
+      </handler>
+      <!--Node dictionary -->
+      <handler
+		class="org.mcerlang.integration.handlers.FunctionHandlers"
+            commandId="org.mcerlang.integration.functions.insertnerase0"
+            >
+      </handler>
+      <handler
+		class="org.mcerlang.integration.handlers.FunctionHandlers"
+            commandId="org.mcerlang.integration.functions.insertnput2"
+            >
+      </handler>
+      <handler
+		class="org.mcerlang.integration.handlers.FunctionHandlers"
+            commandId="org.mcerlang.integration.functions.insertget1 "
+            >
+      </handler>
+      <handler
+		class="org.mcerlang.integration.handlers.FunctionHandlers"
+            commandId="org.mcerlang.integration.functions.insertnerase0_2"
+            >
+      </handler>
+      <handler
+		class="org.mcerlang.integration.handlers.FunctionHandlers"
+            commandId="org.mcerlang.integration.functions.insertget0"
+            >
+      </handler>
+      <!-- Global dictionary-->
+      <handler
+		class="org.mcerlang.integration.handlers.FunctionHandlers"
+            commandId="org.mcerlang.integration.functions.insertgerase0_2"
+            >
+      </handler>
+      <handler
+		class="org.mcerlang.integration.handlers.FunctionHandlers"
+            commandId="org.mcerlang.integration.functions.insertgerase0"
+            >
+      </handler>
+      <handler
+		class="org.mcerlang.integration.handlers.FunctionHandlers"
+            commandId="org.mcerlang.integration.functions.insertgput2"
+            >
+      </handler>
+      <handler
+		class="org.mcerlang.integration.handlers.FunctionHandlers"
+            commandId="org.mcerlang.integration.functions.insertgget1"
+            >
+      </handler>
+      <handler
+		class="org.mcerlang.integration.handlers.FunctionHandlers"
+            commandId="org.mcerlang.integration.functions.insertgget0"
+            >
+      </handler>
+<!-- Structures -->
+
+      <handler
+		class="org.mcerlang.integration.handlers.FunctionHandlers"
+            commandId="org.mcerlang.integration.structures.createmonitor"
+            >
+      </handler>
+      <handler
+		class="org.mcerlang.integration.handlers.FunctionHandlers"
+            commandId="org.mcerlang.integration.structures.createdeadlockmonitor"
+            >
+      </handler>
+<!-- Miscallenious -->      
+
+      <handler
+		class="org.mcerlang.integration.handlers.FunctionHandlers"
+            commandId="org.mcerlang.integration.miscallenious.insertlanguage"
+            >
+      </handler>
+      <handler
+		class="org.mcerlang.integration.handlers.FunctionHandlers"
+            commandId="org.mcerlang.integration.miscallenious.insertchoicestatement"
+            >
       </handler>
    </extension>
    <extension
@@ -48,31 +314,193 @@
                    <menu
                          label="Probe States"
                          mnemonic="S">
-                      <command
-                            commandId="org.mcerlang.integration.functions.inserthas_probe_state2"
-                            style="push">
-                      </command>
+      <!-- Probe states -->
+      <command
+	style="push"
+		
+            commandId="org.mcerlang.integration.functions.inserthas_probe_state2"
+            >
+      </command>
+      <command
+	style="push"
+		
+            commandId="org.mcerlang.integration.functions.insertget_probe_state2"
+            >
+      </command>
+      <command
+	style="push"
+		
+            commandId="org.mcerlang.integration.functions.insertget_probe_state1"
+            >
+      </command>
+      <command
+	style="push"
+		
+            commandId="org.mcerlang.integration.functions.insertdel_probe_state1"
+            >
+      </command>
+      <command
+	style="push"
+		
+            commandId="org.mcerlang.integration.functions.insertprobe_state2"
+            >
+      </command>
+      <command
+	style="push"
+		
+            commandId="org.mcerlang.integration.functions.insertprobe_state1"
+            >
+      </command>
                    </menu>
                    <menu
                          label="Probe Actions"
                          mnemonic="A">
+      <!-- Probe actions -->
+      <command
+	style="push"
+		
+            commandId="org.mcerlang.integration.functions.generatehas_probe_action1"
+            >
+      </command>
+      <command
+	style="push"
+		
+            commandId="org.mcerlang.integration.functions.insertmatch_probe_label1"
+            >
+      </command>
+      <command
+	style="push"
+		
+            commandId="org.mcerlang.integration.functions.insertprobe_label1"
+            >
+      </command>
+      <command
+	style="push"
+		
+            commandId="org.mcerlang.integration.functions.insertis_probe1"
+            >
+      </command>
+      <command
+	style="push"
+		
+            commandId="org.mcerlang.integration.functions.insertprobe2"
+            >
+      </command>
+      <command
+	style="push"
+		
+            commandId="org.mcerlang.integration.functions.insertprobe1"
+            >
+      </command>
                    </menu>
                    <menu
                          label="Node Dictionary"
                          mnemonic="N">
+      <!--Node dictionary -->
+      <command
+	style="push"
+		
+            commandId="org.mcerlang.integration.functions.insertnerase0"
+            >
+      </command>
+      <command
+	style="push"
+		
+            commandId="org.mcerlang.integration.functions.insertnput2"
+            >
+      </command>
+      <command
+	style="push"
+		
+            commandId="org.mcerlang.integration.functions.insertget1 "
+            >
+      </command>
+      <command
+	style="push"
+		
+            commandId="org.mcerlang.integration.functions.insertnerase0_2"
+            >
+      </command>
+      <command
+	style="push"
+		
+            commandId="org.mcerlang.integration.functions.insertget0"
+            >
+      </command>
+
                    </menu>
                    <menu
                          label="Global Dictionary"
                          mnemonic="G">
+                               <!-- Global dictionary-->
+      <command
+	style="push"
+		
+            commandId="org.mcerlang.integration.functions.insertgerase0_2"
+            >
+      </command>
+      <command
+	style="push"
+		
+            commandId="org.mcerlang.integration.functions.insertgerase0"
+            >
+      </command>
+      <command
+	style="push"
+		
+            commandId="org.mcerlang.integration.functions.insertgput2"
+            >
+      </command>
+      <command
+	style="push"
+		
+            commandId="org.mcerlang.integration.functions.insertgget1"
+            >
+      </command>
+      <command
+	style="push"
+		
+            commandId="org.mcerlang.integration.functions.insertgget0"
+            >
+      </command>
+
                    </menu>
                 </menu>
                 <menu
                       label="Structures"
                       mnemonic="S">
+                      <!-- Structures -->
+
+      <command
+	style="push"
+		
+            commandId="org.mcerlang.integration.structures.createmonitor"
+            >
+      </command>
+      <command
+	style="push"
+		
+            commandId="org.mcerlang.integration.structures.createdeadlockmonitor"
+            >
+      </command>
                 </menu>
                 <menu
                       label="Miscallenious"
                       mnemonic="M">
+                      <!-- Miscallenious -->      
+
+      <command
+	style="push"
+		
+            commandId="org.mcerlang.integration.miscallenious.insertlanguage"
+            >
+      </command>
+      <command
+	style="push"
+		
+            commandId="org.mcerlang.integration.miscallenious.insertchoicestatement"
+            >
+      </command>
                 </menu>
          </menu>
       </menuContribution>
