@@ -7,6 +7,7 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.protest.integration.lib.textutils.EditorUtils;
 import org.protest.integration.lib.textutils.InsertionStringPair;
+import org.protest.integration.lib.ui.DynamicInputDialog;
 import org.protest.integration.lib.ui.NullInputException;
 
 public class FunctionHandlers extends AbstractHandler {
@@ -95,85 +96,174 @@ public class FunctionHandlers extends AbstractHandler {
 		}
 
 		else if (id.equals("insertnerase0")) {
+			before += "mcerlang:neraase()";
 		}
 
 		else if (id.equals("insertnput2")) {
+			before += EditorUtils.createCall("mcerlang:nput", "Insert nput/2",
+					"Key", "Value");
 		}
 
 		else if (id.equals("insertget1 ")) {
+			before += EditorUtils.createCall("mcerlang:nget", "Insert get/1",
+					"Key");
 		}
 
 		else if (id.equals("insertnerase0_2")) {
+			before += EditorUtils.createCall("mcerlang:nerase",
+					"Insert nerase/2", "Key", "Value");
 		}
 
 		else if (id.equals("insertget0")) {
+			before += "mcerlang:nget()";
 		}
 
 		else if (id.equals("insertgerase0_2")) {
+			before += EditorUtils.createCall("mcerlang:gerase",
+					"Insert gerase/2", "Key", "Value");
 		}
 
 		else if (id.equals("insertgerase0")) {
+			before += "mcerlang:gerase()";
 		}
 
 		else if (id.equals("insertgput2")) {
+			before += EditorUtils.createCall("mcerlang:gput", "Insert gput/2",
+					"Key", "Value");
 		}
 
 		else if (id.equals("insertgget1")) {
+			before += EditorUtils.createCall("mcerlang:gget", "Insert gget/1",
+					"Key");
 		}
 
 		else if (id.equals("insertgget0")) {
+			before += "mcerlang:gget()";
 		}
 
-		/*
-		 * commandId="org.mcerlang.integration.structures.createmonitor"
-		 * 
-		 * 
-		 * 
-		 * 
-		 * commandId="org.mcerlang.integration.structures.createdeadlockmonitor"
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * commandId="org.mcerlang.integration.miscallenious.insertlanguage"
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * commandId="org.mcerlang.integration.miscallenious.insertchoicestatement"
-		 */
+		else if (id.equals("createmonitor")) {
+			ArrayList<String> inp = DynamicInputDialog.run("Create monitor",
+					"Insert monitor type (safety | buchi)");
+			before += "-module(monitor)." + EditorUtils.NEWLINE
+					+ EditorUtils.NEWLINE;
+
+			before += "-export([init/1,stateChange/3,monitorType/0])."
+					+ EditorUtils.NEWLINE + EditorUtils.NEWLINE;
+
+			before += "-include(\"state.hrl\")." + EditorUtils.NEWLINE
+					+ EditorUtils.NEWLINE;
+
+			before += "-include(\"process.hrl\")." + EditorUtils.NEWLINE
+					+ EditorUtils.NEWLINE;
+
+			before += "-behaviour(mce_behav_monitor)." + EditorUtils.NEWLINE
+					+ EditorUtils.NEWLINE;
+
+			before += "%% monitorType :: atom() = safety | buchi"
+					+ EditorUtils.NEWLINE;
+			before += "monitorType() -> " + inp.get(0) + "."
+					+ EditorUtils.NEWLINE + EditorUtils.NEWLINE;
+
+			before += "%% Monitor state initializer" + EditorUtils.NEWLINE;
+			before += "%% init( State :: state() ) -> {ok, initialState :: state() }"
+					+ EditorUtils.NEWLINE;
+			before += "init(State) -> " + EditorUtils.NEWLINE;
+			before += EditorUtils.TAB + "{ok, State}." + EditorUtils.NEWLINE
+					+ EditorUtils.NEWLINE;
+
+			before += "%% Evaluated after each system transition"
+					+ EditorUtils.NEWLINE;
+			before += "%% State :: state() Current system state"
+					+ EditorUtils.NEWLINE;
+			before += "%% MonState :: monState() Current monitor state (from previous transition)"
+					+ EditorUtils.NEWLINE;
+			before += "%% Stack :: stack() System stack containing functions executed in state transition"
+					+ EditorUtils.NEWLINE;
+			before += "stateChange(State,MonState,Stack) ->"
+					+ EditorUtils.NEWLINE;
+			before += "%% To be completed" + EditorUtils.NEWLINE;
+			before += EditorUtils.TAB + "{ok, Monstate}.";
+		}
+
+		else if (id.equals("createdeadlockmonitor")) {
+
+			before += "-module(monitor_deadlock)." + EditorUtils.NEWLINE
+					+ EditorUtils.NEWLINE;
+
+			before += "-export([init/1,stateChange/3,monitorType/0])."
+					+ EditorUtils.NEWLINE + EditorUtils.NEWLINE;
+
+			before += "-include(\"state.hrl\")." + EditorUtils.NEWLINE
+					+ EditorUtils.NEWLINE;
+
+			before += "-include(\"process.hrl\")." + EditorUtils.NEWLINE
+					+ EditorUtils.NEWLINE;
+
+			before += "-behaviour(mce_behav_monitor)." + EditorUtils.NEWLINE
+					+ EditorUtils.NEWLINE;
+
+			before += "%% monitorType :: atom() = safety | buchi"
+					+ EditorUtils.NEWLINE;
+			before += "monitorType() -> safety." + EditorUtils.NEWLINE
+					+ EditorUtils.NEWLINE;
+			before += "%% Monitor state initializer" + EditorUtils.NEWLINE;
+			before += "init(State) -> {ok,State}." + EditorUtils.NEWLINE
+					+ EditorUtils.NEWLINE;
+
+			before += "%% Evaluated after each system transition"
+					+ EditorUtils.NEWLINE;
+			before += "%% State :: state() Current system state"
+					+ EditorUtils.NEWLINE;
+			before += "%% MonState :: monState() Current monitor state"
+					+ EditorUtils.NEWLINE;
+			before += "stateChange(State,MonState,_) ->" + EditorUtils.NEWLINE;
+			before += EditorUtils.TAB
+					+ "%% Check system state to identify a possible deadlock situation"
+					+ EditorUtils.NEWLINE;
+			before += EditorUtils.TAB + "case is_deadlocked(State) of"
+					+ EditorUtils.NEWLINE;
+			before += EditorUtils.TAB
+					+ "%% Deadlock identified. Execution will fail.%%"
+					+ EditorUtils.NEWLINE;
+			before += EditorUtils.TAB + "true -> deadlock;"
+					+ EditorUtils.NEWLINE;
+			before += EditorUtils.TAB
+					+ "%% Non deadlock situation. Monitor state returned unchanged"
+					+ EditorUtils.NEWLINE;
+			before += EditorUtils.TAB + "false -> {ok, MonState}"
+					+ EditorUtils.NEWLINE;
+			before += "end." + EditorUtils.NEWLINE + EditorUtils.NEWLINE;
+
+			before += "%% Checks system state in search for deadlock situations"
+					+ EditorUtils.NEWLINE;
+			before += "%% is_deadlocked :: bool()" + EditorUtils.NEWLINE;
+			before += "is_deadlocked(State) ->" + EditorUtils.NEWLINE;
+			before += EditorUtils.TAB + "State#state.ether =:= [] andalso"
+					+ EditorUtils.NEWLINE;
+			before += EditorUtils.TAB
+					+ "case mce_utils:find(fun (P) -> P#process.status =/= blocked end,"
+					+ EditorUtils.NEWLINE;
+			before += EditorUtils.TAB + EditorUtils.TAB + EditorUtils.TAB
+					+ "mce_erl:allProcesses(State)) of" + EditorUtils.NEWLINE;
+			before += EditorUtils.TAB
+					+ EditorUtils.TAB
+					+ "%% False if there exist at least one process that is not blocked"
+					+ EditorUtils.NEWLINE;
+			before += EditorUtils.TAB + EditorUtils.TAB + "{ok, _} -> false;"
+					+ EditorUtils.NEWLINE;
+			before += EditorUtils.TAB + EditorUtils.TAB + "no -> true"
+					+ EditorUtils.NEWLINE;
+			before += EditorUtils.TAB + "end.";
+		}
+
+		else if (id.equals("insertlanguage")) {
+			before += "-language(erlang).";
+		}
+
+		else if (id.equals("insertchoicestatement")) {
+			before += "mce_erl:choice([{ }])";
+		}
+
 		if (ret != null) {
 			return ret;
 		}

@@ -100,7 +100,7 @@
       <command
             categoryId="org.mcerlang.integration.functions"
             id="org.mcerlang.integration.functions.insertgerase0_2"
-            name="Insert gerase/0">
+            name="Insert gerase/2">
       </command>
       <command
             categoryId="org.mcerlang.integration.functions"
@@ -316,10 +316,8 @@
                          mnemonic="S">
       <!-- Probe states -->
       <command
-	style="push"
-		
             commandId="org.mcerlang.integration.functions.inserthas_probe_state2"
-            >
+            style="push">
       </command>
       <command
 	style="push"
