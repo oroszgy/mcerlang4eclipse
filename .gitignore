@@ -1,1 +1,4 @@
 org.mcerlang*
+.project
+*.class
+bin
