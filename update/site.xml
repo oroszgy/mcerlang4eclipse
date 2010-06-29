@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.mcerlang_0.1.0.201006291154.jar" id="org.mcerlang" version="0.1.0.201006291154">
+      <category name="testing"/>
+   </feature>
+   <category-def name="testing" label="testing"/>
+</site>
