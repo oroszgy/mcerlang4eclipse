@@ -1,0 +1,1539 @@
+\batchmode
+\documentclass[a4paper]{article}
+\RequirePackage{ifthen}
+
+ 
+
+
+\usepackage{a4wide}
+\usepackage{times}
+\usepackage{xspace}
+\usepackage{epsfig}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{hyperref}
+
+%
+\providecommand{\erlang}{Erlang\xspace}%
+\providecommand{\erlangOTP}{Erlang/OTP\xspace}%
+\providecommand{\mcerlang}{McErlang\xspace} 
+
+
+\lstdefinelanguage{Erlang}%
+  {morekeywords={abs,after,and,apply,atom,atom_to_list,band,binary,%
+      fun,binary_to_list,binary_to_term,bor,bsl,bsr,bxor,case,catch,%
+      date,div,element,erase,end,exit,export,float,float_to_list,%
+      get,halt,hash,hd,if,info,import,integer,integer_to_list,%
+      length,link,list,list_to_atom,list_to_float,list_to_integer,%
+      list_to_tuple,module,node,nodes,now,of,or,pid,port,ports,%
+      put,receive,reference,register,registered,rem,%
+      round,self,setelement,size,spawn,throw,tl,trace,trunc,%
+      spawn_link,process_flag,
+      tuple,tuple_to_list,unlink,unregister,whereis,try,%
+      infinity,undefined,when},%
+   otherkeywords={->,!,[,],\{,\}},%
+   morecomment=[l]\%,%
+   morestring=[b]",%
+   morestring=[b]'%
+  }
+
+
+\lstset{basicstyle=\ttfamily }
+
+%
+\providecommand{\algsimulation}{mce\_alg\_simulation\xspace}%
+\providecommand{\algsafetyclassic}{mce\_alg\_safety\_classic\xspace} 
+
+%
+\providecommand{\dorunexp}{dorun\_exp\xspace} 
+
+%
+\providecommand{\logon}{monSendLogon\xspace} 
+
+%
+\providecommand{\statechange}{stateChange\xspace} 
+
+%
+\providecommand{\simplemessengerdir}{repository/McErlang/examples/Simple\_messenger\xspace}%
+\providecommand{\testl}{testl.erl\xspace} 
+
+
+
+
+
+\pagecolor[gray]{.7}
+
+\usepackage[latin1]{inputenc}
+
+
+
+\makeatletter
+
+\makeatletter
+\count@=\the\catcode`\_ \catcode`\_=8 
+\newenvironment{tex2html_wrap}{}{}%
+\catcode`\<=12\catcode`\_=\count@
+\newcommand{\providedcommand}[1]{\expandafter\providecommand\csname #1\endcsname}%
+\newcommand{\renewedcommand}[1]{\expandafter\providecommand\csname #1\endcsname{}%
+  \expandafter\renewcommand\csname #1\endcsname}%
+\newcommand{\newedenvironment}[1]{\newenvironment{#1}{}{}\renewenvironment{#1}}%
+\let\newedcommand\renewedcommand
+\let\renewedenvironment\newedenvironment
+\makeatother
+\let\mathon=$
+\let\mathoff=$
+\ifx\AtBeginDocument\undefined \newcommand{\AtBeginDocument}[1]{}\fi
+\newbox\sizebox
+\setlength{\hoffset}{0pt}\setlength{\voffset}{0pt}
+\addtolength{\textheight}{\footskip}\setlength{\footskip}{0pt}
+\addtolength{\textheight}{\topmargin}\setlength{\topmargin}{0pt}
+\addtolength{\textheight}{\headheight}\setlength{\headheight}{0pt}
+\addtolength{\textheight}{\headsep}\setlength{\headsep}{0pt}
+\setlength{\textwidth}{349pt}
+\newwrite\lthtmlwrite
+\makeatletter
+\let\realnormalsize=\normalsize
+\global\topskip=2sp
+\def\preveqno{}\let\real@float=\@float \let\realend@float=\end@float
+\def\@float{\let\@savefreelist\@freelist\real@float}
+\def\liih@math{\ifmmode$\else\bad@math\fi}
+\def\end@float{\realend@float\global\let\@freelist\@savefreelist}
+\let\real@dbflt=\@dbflt \let\end@dblfloat=\end@float
+\let\@largefloatcheck=\relax
+\let\if@boxedmulticols=\iftrue
+\def\@dbflt{\let\@savefreelist\@freelist\real@dbflt}
+\def\adjustnormalsize{\def\normalsize{\mathsurround=0pt \realnormalsize
+ \parindent=0pt\abovedisplayskip=0pt\belowdisplayskip=0pt}%
+ \def\phantompar{\csname par\endcsname}\normalsize}%
+\def\lthtmltypeout#1{{\let\protect\string \immediate\write\lthtmlwrite{#1}}}%
+\newcommand\lthtmlhboxmathA{\adjustnormalsize\setbox\sizebox=\hbox\bgroup\kern.05em }%
+\newcommand\lthtmlhboxmathB{\adjustnormalsize\setbox\sizebox=\hbox to\hsize\bgroup\hfill }%
+\newcommand\lthtmlvboxmathA{\adjustnormalsize\setbox\sizebox=\vbox\bgroup %
+ \let\ifinner=\iffalse \let\)\liih@math }%
+\newcommand\lthtmlboxmathZ{\@next\next\@currlist{}{\def\next{\voidb@x}}%
+ \expandafter\box\next\egroup}%
+\newcommand\lthtmlmathtype[1]{\gdef\lthtmlmathenv{#1}}%
+\newcommand\lthtmllogmath{\dimen0\ht\sizebox \advance\dimen0\dp\sizebox
+  \ifdim\dimen0>.95\vsize
+   \lthtmltypeout{%
+*** image for \lthtmlmathenv\space is too tall at \the\dimen0, reducing to .95 vsize ***}%
+   \ht\sizebox.95\vsize \dp\sizebox\z@ \fi
+  \lthtmltypeout{l2hSize %
+:\lthtmlmathenv:\the\ht\sizebox::\the\dp\sizebox::\the\wd\sizebox.\preveqno}}%
+\newcommand\lthtmlfigureA[1]{\let\@savefreelist\@freelist
+       \lthtmlmathtype{#1}\lthtmlvboxmathA}%
+\newcommand\lthtmlpictureA{\bgroup\catcode`\_=8 \lthtmlpictureB}%
+\newcommand\lthtmlpictureB[1]{\lthtmlmathtype{#1}\egroup
+       \let\@savefreelist\@freelist \lthtmlhboxmathB}%
+\newcommand\lthtmlpictureZ[1]{\hfill\lthtmlfigureZ}%
+\newcommand\lthtmlfigureZ{\lthtmlboxmathZ\lthtmllogmath\copy\sizebox
+       \global\let\@freelist\@savefreelist}%
+\newcommand\lthtmldisplayA{\bgroup\catcode`\_=8 \lthtmldisplayAi}%
+\newcommand\lthtmldisplayAi[1]{\lthtmlmathtype{#1}\egroup\lthtmlvboxmathA}%
+\newcommand\lthtmldisplayB[1]{\edef\preveqno{(\theequation)}%
+  \lthtmldisplayA{#1}\let\@eqnnum\relax}%
+\newcommand\lthtmldisplayZ{\lthtmlboxmathZ\lthtmllogmath\lthtmlsetmath}%
+\newcommand\lthtmlinlinemathA{\bgroup\catcode`\_=8 \lthtmlinlinemathB}
+\newcommand\lthtmlinlinemathB[1]{\lthtmlmathtype{#1}\egroup\lthtmlhboxmathA
+  \vrule height1.5ex width0pt }%
+\newcommand\lthtmlinlineA{\bgroup\catcode`\_=8 \lthtmlinlineB}%
+\newcommand\lthtmlinlineB[1]{\lthtmlmathtype{#1}\egroup\lthtmlhboxmathA}%
+\newcommand\lthtmlinlineZ{\egroup\expandafter\ifdim\dp\sizebox>0pt %
+  \expandafter\centerinlinemath\fi\lthtmllogmath\lthtmlsetinline}
+\newcommand\lthtmlinlinemathZ{\egroup\expandafter\ifdim\dp\sizebox>0pt %
+  \expandafter\centerinlinemath\fi\lthtmllogmath\lthtmlsetmath}
+\newcommand\lthtmlindisplaymathZ{\egroup %
+  \centerinlinemath\lthtmllogmath\lthtmlsetmath}
+\def\lthtmlsetinline{\hbox{\vrule width.1em \vtop{\vbox{%
+  \kern.1em\copy\sizebox}\ifdim\dp\sizebox>0pt\kern.1em\else\kern.3pt\fi
+  \ifdim\hsize>\wd\sizebox \hrule depth1pt\fi}}}
+\def\lthtmlsetmath{\hbox{\vrule width.1em\kern-.05em\vtop{\vbox{%
+  \kern.1em\kern0.8 pt\hbox{\hglue.17em\copy\sizebox\hglue0.8 pt}}\kern.3pt%
+  \ifdim\dp\sizebox>0pt\kern.1em\fi \kern0.8 pt%
+  \ifdim\hsize>\wd\sizebox \hrule depth1pt\fi}}}
+\def\centerinlinemath{%
+  \dimen1=\ifdim\ht\sizebox<\dp\sizebox \dp\sizebox\else\ht\sizebox\fi
+  \advance\dimen1by.5pt \vrule width0pt height\dimen1 depth\dimen1 
+ \dp\sizebox=\dimen1\ht\sizebox=\dimen1\relax}
+
+\def\lthtmlcheckvsize{\ifdim\ht\sizebox<\vsize 
+  \ifdim\wd\sizebox<\hsize\expandafter\hfill\fi \expandafter\vfill
+  \else\expandafter\vss\fi}%
+\providecommand{\selectlanguage}[1]{}%
+\makeatletter \tracingstats = 1 
+
+
+\begin{document}
+\pagestyle{empty}\thispagestyle{empty}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength hsize=\the\hsize}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength vsize=\the\vsize}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength hoffset=\the\hoffset}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength voffset=\the\voffset}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength topmargin=\the\topmargin}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength topskip=\the\topskip}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength headheight=\the\headheight}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength headsep=\the\headsep}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength parskip=\the\parskip}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength oddsidemargin=\the\oddsidemargin}\lthtmltypeout{}%
+\makeatletter
+\if@twoside\lthtmltypeout{latex2htmlLength evensidemargin=\the\evensidemargin}%
+\else\lthtmltypeout{latex2htmlLength evensidemargin=\the\oddsidemargin}\fi%
+\lthtmltypeout{}%
+\makeatother
+\setcounter{page}{1}
+\onecolumn
+
+% !!! IMAGES START HERE !!!
+
+\stepcounter{section}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting64}%
+\begin{lstlisting}[language=Erlang]
+-module(example). 
+-export([start/0]).
+\par
+start() -> 
+  spawn(fun() -> 
+           register(echo,self()), echo() 
+        end),
+  spawn(fun() -> 
+           echo!{msg,self(),'hello world'},
+           receive
+             {echo,Msg} -> Msg
+           end
+        end).
+\par
+echo() ->
+  receive
+    {msg,Client,Msg} ->
+      Client!{echo,Msg},
+      echo()
+  end.
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting70}%
+\begin{lstlisting}
+> erlc example.erl
+> erl
+Erlang (BEAM) emulator version 5.6.5 [source] [smp:2] ...
+\par
+Eshell V5.6.5  (abort with ^G)
+1> example:start().
+<0.34.0>
+2> 
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting72}%
+\begin{lstlisting}
+> mcerl_compiler -sources example.erl -output_dir .
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting74}%
+\begin{lstlisting}
+> mcerl
+Erlang (BEAM) emulator version 5.6.5 [source] [smp:2] ...
+\par
+Eshell V5.6.5  (abort with ^G)
+1> mce:apply(example,start,[]).
+Starting McErlang model checker environment version 1.0 ...
+...
+\par
+Process ... exited because of error: badarg
+\par
+*** User code generated error
+exception error due to reason badarg
+Stack trace:
+  mcerlang:resolvePid/2
+  mcerlang:send/2
+  ...
+\par
+Access result using mce:result()
+To see the counterexample type "mce_erl_debugger:start(mce:result()). "
+ok
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting76}%
+\begin{lstlisting}
+2> mce_erl_debugger:start(mce:result()).
+Starting debugger with a stack trace; execution terminated with status:
+  user program raised an uncaught exception.
+...
+\par
+stack(@2)> where().
+2: 
+\par
+1: process <node0@exodo3,3>: 
+    run #Fun<example.2.125316937>([])
+    process <node0@exodo3,3> died due to reason badarg
+\par
+0: process <node0@exodo3,1>: 
+    run function example:start([])
+    spawn({#Fun<example.1.27838786>,[]},[]) --> {pid,node0@exodo3,2}
+    spawn({#Fun<example.2.125316937>,[]},[]) --> {pid,node0@exodo3,3}
+    process <node0@exodo3,1> was terminated
+    process <node0@exodo3,1> died due to reason normal
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsection}
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting88}%
+\begin{lstlisting}[language=Erlang]
+receive
+  Pattern1 when Guard1 -> Expr1;
+  ...
+  PatternN when GuarnN -> ExprN
+  after Timeout -> Expr
+end
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsection}
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting96}%
+\begin{lstlisting}[language=Erlang]
+mce_erl:choice(Funs::fun_spec())
+   fun_spec() = {Fun::fun(),ArgList::[term()]} 
+              | {Module::atom(),FunctionName::atom(),ArgList::[term()]}
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting100}%
+\begin{lstlisting}[language=Erlang]
+mce_erl:choice
+   ([{vodka,select_movie,[{lookup,X,[Y]}]} 
+     || X <- [casablanca,jaws,volver],Y <- [1,2]])
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting105}%
+\begin{lstlisting}[language=Erlang]
+mcerlang:bringNodeUp(NodeName::atom())
+mcerlang:bringNodeDown(NodeName::atom())
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{section}
+\stepcounter{subsection}
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting115}%
+\begin{lstlisting}[language=Erlang]
+echo() ->
+  receive
+    {msg,Pid,Msg} -> ok
+  end,
+  Pid!{echo,Msg}.
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting119}%
+\begin{lstlisting}[language=Erlang,mathescape]
+echo() ->
+  $[\,[$receive
+    {msg,Pid,Msg} -> ok
+  end$]\,]$,
+  Pid!{echo,Msg}.
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline692}%
+$[[$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline694}%
+$]]$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting123}%
+\begin{lstlisting}[language=Erlang,mathescape]
+echo() ->
+  let X =
+    $[\,[$receive
+      {msg,Pid,Msg} -> ok
+    end$]\,]$
+  in Pid!{echo,Msg}.
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting130}%
+\begin{lstlisting}[language=Erlang]
+[
+ {gen_server,[{translated_to,mce_erl_gen_server}]},
+ {supervisor,[{translated_to,mce_erl_supervisor}]},
+ {gen_fsm,[{translated_to,mce_erl_gen_fsm}]},
+ {erlang,[{rcv,false}]},
+ {{erlang,spawn,4},[rcv,{translated_to,{mcerlang,spawn}}]},
+ {{erlang,send,2},[snd,{translated_to,{mcerlang,send}}]},
+ ...
+]
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting140}%
+\begin{lstlisting}[language=Erlang]
+{module, [attribute1,...,attributeN]}
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting143}%
+\begin{lstlisting}[language=Erlang]
+{{module,functionname,arity}, [attribute1,...,attributeN]}
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting146}%
+\begin{lstlisting}[language=Erlang]
+{gen_server,[{translated_to,mce_erl_gen_server}]}
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsection}
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting159}%
+\begin{lstlisting}[language=Erlang]
+lists:foreach(fun (Element) -> 
+                receive Command -> {Element,Command} end 
+              end L).
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsection}
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting173}%
+\begin{lstlisting}[language=Erlang]
+-language(erlang).
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting176}%
+\begin{lstlisting}[language=Erlang]
+-ifdef(McErlang).
+-define(Output(),io:format("McErlang is here!~n",[])).
+-else.
+-define(Output(),io:format("No McErlang...~n",[])).
+-endif.
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting180}%
+\begin{lstlisting}
+-sources file_or_directory1.erl 
+         ... 
+         file_or_directoryN.erl [options]
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting184}%
+\begin{lstlisting}
+-libs directory1 ... directoryN
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting189}%
+\begin{lstlisting}
+-output_dir directory
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting192}%
+\begin{lstlisting}
+-funinfo configuration_file
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting195}%
+\begin{lstlisting}
+-verbose [true|false]
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting199}%
+\begin{lstlisting}
+-unknown_is_rcv [true|false]
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting202}%
+\begin{lstlisting}
+-sends_are_sefs [true|false]
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting211}%
+\begin{lstlisting}{language=make}
+sources = $(wildcard *.erl)
+beams = $(patsubst %.erl,../ebin/%.beam,$(sources))
+\par
+$(beams): $(sources)
+	mcerl_compiler -output_dir ../ebin \
+        -sources \$(sources) \
+        -include_dirs include
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsection}
+\stepcounter{section}
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting235}%
+\begin{lstlisting}[language=Erlang]
+mce:start(Conf::conf())
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting238}%
+\begin{lstlisting}[language=Erlang]
+mce:apply(Module::atom,FunName::atom,Arguments::[term()])
+mce:apply(Module::atom,FunName::atom,Arguments::[term()],Conf::conf())
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting241}%
+\begin{lstlisting}[language=Erlang]
+mce:shell()
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsection}
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting246}%
+\begin{lstlisting}[language=Erlang]
+1> rr(mce:find_mce_opts()).
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting249}%
+\begin{lstlisting}[language=Erlang]
+program = {Module::atom(),FunName::atom(),Arguments::[term()]} 
+        | {Function::fun(), Arguments::[term()]}
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting253}%
+\begin{lstlisting}[language=Erlang]
+algorithm = {Module::atom(),InitArg::term()}          
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting257}%
+\begin{lstlisting}[language=Erlang]
+monitor = {Module::atom(),InitArg::term()}
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting265}%
+\begin{lstlisting}[language=Erlang]
+abstraction = {Module::atom(),InitArg::term()}       
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting269}%
+\begin{lstlisting}[language=Erlang]
+table = {Module::atom(),InitArg::term()}          
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting273}%
+\begin{lstlisting}[language=Erlang]
+stack = {Module::atom(),InitArg::term()}
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting277}%
+\begin{lstlisting}[language=Erlang]
+scheduler = {Module::atom(),InitArg::term()}
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting283}%
+\begin{lstlisting}[language=Erlang]
+sim_external_world = true() | false()
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting285}%
+\begin{lstlisting}[language=Erlang]
+pathLimit = int()
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting287}%
+\begin{lstlisting}[language=Erlang]
+shortest = true() | false()
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting289}%
+\begin{lstlisting}[language=Erlang]
+terminate = true() | false()
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting291}%
+\begin{lstlisting}[language=Erlang]
+notice_exits = true() | false()
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting293}%
+\begin{lstlisting}[language=Erlang]
+fail_on_exit = true() | false()
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting295}%
+\begin{lstlisting}[language=Erlang]
+is_infinitely_fast = true() | false()
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting297}%
+\begin{lstlisting}[language=Erlang]
+sim_actions = true() | false()
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting299}%
+\begin{lstlisting}[language=Erlang]
+seed = {int(),int(),int()}
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting302}%
+\begin{lstlisting}[language=Erlang]
+record_actions = true() | false()
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting304}%
+\begin{lstlisting}[language=Erlang]
+random = true() | false()
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting307}%
+\begin{lstlisting}[language=Erlang]
+time_limit = int()
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting309}%
+\begin{lstlisting}[language=Erlang]
+rpc = true() | false()
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting312}%
+\begin{lstlisting}[language=Erlang]
+small_pids = true() | false()
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsection}
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting316}%
+\begin{lstlisting}[language=Erlang]
+mce_erl_debugger:start(mce:result()).
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsubsection}
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting324}%
+\begin{lstlisting}
+Path depth at 10000 entries
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting326}%
+\begin{lstlisting}
+Generated states 70000; checked states 247709; relation 3.5387
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsubsection}
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting331}%
+\begin{lstlisting}[language=Erlang]
+mce_alg_simulation
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting334}%
+\begin{lstlisting}
+> mcerl
+Erlang (BEAM) emulator version 5.6.5 [source] [smp:4] ...
+\par
+Eshell V5.6.5  (abort with ^G)
+1> rr(mce:find_mce_opts()).   
+[mce_opts]
+2> mce:start(#mce_opts{program={example,start,[]},
+                       algorithm={mce_alg_simulation,void}}).
+Starting McErlang model checker environment version 1.0A ...
+\par
+Starting mce_alg_simulation(void) algorithm on program
+example:start()
+with monitor mce_mon_test(ok)
+\par
+...
+Execution terminated normally
+Access result using mce:result()
+ok
+3> 
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting340}%
+\begin{lstlisting}[language=Erlang]
+mce_alg_debugger
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting343}%
+\begin{lstlisting}[language=Erlang]
+mce_alg_safety
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting346}%
+\begin{lstlisting}[language=Erlang]
+mce_alg_buechi
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting350}%
+\begin{lstlisting}[language=Erlang]
+mce_alg_safety_parallel
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting353}%
+\begin{lstlisting}[language=Erlang]
+mce:start(#mce_opts{program={example,start},
+                    algorithm={mce_alg_safety_parallel,4}})
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting358}%
+\begin{lstlisting}[language=Erlang]
+mce_alg_combine
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting360}%
+\begin{lstlisting}[language=Erlang]
+algorithm=
+  {mce_alg_combine,
+     {#mce_opts{algorithm={mce_alg_simulation,void},
+		           scheduler={locker_sched,void}},
+      #mce_opts{algorithm={mce_alg_safety,void},
+	                   monitor={monMutex,[]},
+			   table={mce_table_hashWithActions,[]}}}}
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsection}
+{\newpage\clearpage
+\lthtmlfigureA{figure372}%
+\begin{figure}\begin{lstlisting}[language=Erlang]
+-module(mce_mon_deadlock).
+-export([init/1,stateChange/3,monitorType/0]).
+\par
+-include("state.hrl").
+-include("process.hrl").
+-include("node.hrl").
+\par
+-behaviour(mce_behav_monitor).
+\par
+init(State) -> {ok,State}.
+\par
+stateChange(State,MonState,_) -> 
+  case is_deadlocked(State) of
+    true -> deadlock;
+    false -> {ok, MonState}
+  end.
+\par
+is_deadlocked(State) ->
+  State#state.ether =:= [] andalso
+  case mce_erl:allProcesses(State) of
+     [] -> false;
+     Processes ->
+       case mce_utils:find
+            (fun (P) -> P#process.status =/= blocked end,
+	     Processes) of
+         {ok, _} -> false;
+         no -> true
+       end
+  end.
+\par
+monitorType() -> safety.
+\end{lstlisting}
+
+\end{figure}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting382}%
+\begin{lstlisting}[language=Erlang]
+stateChange(ProgramState,MonitorState,VerificationStack)
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting385}%
+\begin{lstlisting}[language=Erlang]
+mce:start(#mce_opts{program={example,start,[]},
+                    monitor={mce_mon_nondeadlock,void}}).
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsubsection}
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting391}%
+\begin{lstlisting}[language=Erlang]
+  {Entry,_} = mce_behav_stackOps:pop(VerificationStack),
+  Entry#stackEntry.actions.
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting394}%
+\begin{lstlisting}[language=Erlang]
+  gen_server:call(Locker, request),
+  mce_erl:probe(inUse),
+  gen_server:call(Locker, release)
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting396}%
+\begin{lstlisting}[language=Erlang]
+init(State) -> {ok,init}.
+\par
+stateChange(_State,init,Stack) -> 
+  case has_probe_action(actions(Stack)) of
+    {true, inUse} -> {ok, inUse};
+    no -> {ok, init}
+  end;
+stateChange(_State,inUse,Stack) ->
+  case has_probe_action(actions(Stack)) of
+    {true, release} -> {ok, init};
+    {true, inUse} -> {inUse, twice};
+    no -> {ok, inUse}
+  end.
+\par
+actions(Stack) ->
+  {Entry,_} = mce_behav_stackOps:pop(Stack),
+  case Entry#stackEntry.actions of
+    void -> [];
+    Other -> Other
+  end.
+\par
+has_probe_action(Actions) ->
+   mce_utils:findret(fun mce_erl:match_probe_label/1, Actions).
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{paragraph}
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting409}%
+\begin{lstlisting}[language=erlang]
+mce_erl:probe_state(Label::term())
+mce_erl:probe_state(Label::term,Term::term)
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting411}%
+\begin{lstlisting}[language=erlang]
+mce_erl:del_probe_state(Label::term())
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting413}%
+\begin{lstlisting}[language=erlang]
+mce_erl:has_probe_state(Label::term(),ProgramState::mcErlangState()) ->
+  bool()
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting415}%
+\begin{lstlisting}[language=erlang]
+mce_erl:get_probe_state(Label::term(),ProgramState::mcErlangState()) ->
+  term()
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsubsection}
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting419}%
+\begin{lstlisting}[language=Erlang]
+{mce_mon_queue, MaxQueueSize::int()}
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting423}%
+\begin{lstlisting}[language=Erlang]
+{mce_mon_deadlock, Any::any()}
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsection}
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting429}%
+\begin{lstlisting}[language=Erlang]
+-module(mce_abs_hash).
+-export([init/1, abstract_actions/2,abstract_state/2]).
+-behaviour(abstraction).
+\par
+init(Size) -> {ok,Size}.
+abstract_actions(A,Size) -> {A,Size}.
+abstract_state(State,Size) -> {erlang:phash2(State,Size),Size}.
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsection}
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting437}%
+\begin{lstlisting}[language=Erlang]
+mce_table_hash
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting439}%
+\begin{lstlisting}[language=Erlang]
+mce_table_hashWithActions
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting441}%
+\begin{lstlisting}[language=Erlang]
+mce_table_bitHash
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting443}%
+\begin{lstlisting}[language=Erlang]
+mce_table_hash_bounded
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsection}
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting450}%
+\begin{lstlisting}[language=Erlang]
+mce_stack_list
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting452}%
+\begin{lstlisting}[language=Erlang]
+mce_stack_bounded
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting454}%
+\begin{lstlisting}[language=Erlang]
+#mce_opts{stack={mce_stack_bounded,Bound::int()},...}
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting457}%
+\begin{lstlisting}[language=Erlang]
+mce_stack_onePlace
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsection}
+{\newpage\clearpage
+\lthtmlfigureA{figure463}%
+\begin{figure}\begin{lstlisting}[language=Erlang]
+-module(locker_sched).
+-export([init/1,choose/4,willCommit/1]).
+\par
+-behaviour(mce_behav_scheduler).
+\par
+init(StartState) -> {ok,StartState}.
+\par
+willCommit(_) -> true.
+\par
+choose(Transitions,SchedState,Monitor,Conf) ->
+  FilteredTransitions =
+    lists:filter
+      (fun reqFilter/1,
+       lists:map
+       (fun (T) -> mce_erl_opsem:commit(T,Monitor,Conf) end, Transitions)),
+\par
+case length(FilteredTransitions) of
+    N when N>0 ->
+      SelectedNumber = random:uniform(N),
+      {ok,{lists:nth(SelectedNumber,FilteredTransitions),SchedState}};
+    0 -> no_transitions
+  end.
+\par
+reqFilter({Actions,_}) -> not(lists:any(fun send2locker/1, Actions)).
+\par
+send2locker(Action) ->
+  case mce_erl_actions:is_send(Action) of
+    true -> mce_erl_actions:get_send_pid(Action)=:=locker;
+    false -> false
+  end.
+\end{lstlisting}
+
+\end{figure}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsection}
+\stepcounter{subsubsection}
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting482}%
+\begin{lstlisting}[language=Erlang]
+mce_erl_debugger:start(Object::debugger_object())
+        debugger_object() = stack() | mce_result()
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting489}%
+\begin{lstlisting}[language=Erlang]
+mce:start
+  (#mce_opts
+   {program={Module,Program,Args},
+    algorithm={mce_alg_debugger,void}}).
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsubsection}
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting495}%
+\begin{lstlisting}[language=Erlang]
+int()
+choose(N::int())
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting497}%
+\begin{lstlisting}[language=Erlang]
+step()
+step(N::int())
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting500}%
+\begin{lstlisting}[language=Erlang]
+run()
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting502}%
+\begin{lstlisting}[language=Erlang]
+printTransitions()
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting504}%
+\begin{lstlisting}[language=Erlang]
+printState()
+printEther()
+printNodeNames()
+printProcessNames()
+printNode(NodeName::atom())
+printProcess(Pid::pid())
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting506}%
+\begin{lstlisting}[language=Erlang]
+showExecution()
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting508}%
+\begin{lstlisting}[language=Erlang]
+where()
+where(N::int())
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting511}%
+\begin{lstlisting}[language=Erlang]
+back()
+back(N::int())
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting513}%
+\begin{lstlisting}[language=Erlang]
+forward()
+forward(N::int())
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting515}%
+\begin{lstlisting}[language=Erlang]
+goto(N::int())
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting518}%
+\begin{lstlisting}[language=Erlang]
+quit()
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsection}
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting523}%
+\begin{lstlisting}
+1> mce:shell().
+...
+McErlang::node0@sadrach> self().
+{pid,node0@sadrach,1}
+\par
+McErlang::node0@sadrach> self()!hello.
+hello
+\par
+McErlang::node0@sadrach> receive X -> {msg,X} end.
+{msg,hello}
+\par
+McErlang::node0@sadrach> 
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{paragraph}
+\stepcounter{section}
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting532}%
+\begin{lstlisting}[language=Erlang]
+string(S::string()) -> ltl()
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting534}%
+\begin{lstlisting}[language=erlang]
+ltl_string2module(S::string(),FileName::string()) -> atom()
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting536}%
+\begin{lstlisting}[language=erlang]
+ltl_string2module_and_load(S::string(),ModuleName::atom()) -> atom()
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting538}%
+\begin{lstlisting}[language=erlang]
+ltl2module(L::ltl(),FileName::string()) -> atom()
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting540}%
+\begin{lstlisting}[language=erlang]
+ltl2module_and_load(S::string(),ModuleName::atom()) -> atom()
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsection}
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting546}%
+\begin{lstlisting}[language=Erlang]
+ltl() = ltrue() 
+      | lfalse()  
+      | prop(proposition()) 
+      | land(Phi1::ltl(), Phi2::ltl()) 
+      | lor(Phi1::ltl(), Phi2::ltl()) 
+      | lnot(Phi::ltl()) 
+      | implication(Phi1::ltl(), Phi2::ltl()) 
+      | equivalent(Phi1::ltl(), Phi2::ltl()) 
+      | next(Phi::ltl()) 
+      | always(Phi:ltl()) 
+      | eventually(Phi::ltl()) 
+      | until(Psi::ltl(),Phi::ltl()) 
+      | release(Psi::ltl(),Phi::ltl()) 
+\par
+proposition() = fun atom():atom()/int()
+              | {atom(),atom()}
+              | {var,atom()}
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmldisplayA{displaymath686}%
+\begin{displaymath}
+\begin{array}{rcl}
+\mathit{formula} & ::= & \mbox{\lstinline@(@} \mathit{formula} \mbox{\lstinline@)@} \\
+     & | & \mathit{proposition} \\
+     & | & \mathit{formula} \;\mbox{\lstinline@until@}\; \mathit{formula} \\
+     & | & \mbox{\lstinline@always@}\; \mathit{formula} \\
+     & | & \mbox{\lstinline@next@}\; \mathit{formula} \\
+     & | & \mbox{\lstinline@eventually@}\; \mathit{formula} \\
+     & | & \mathit{formula} \;\mbox{\lstinline@or@}\; \mathit{formula} \\
+     & | & \mathit{formula} \;\mbox{\lstinline@and@}\; \mathit{formula} \\
+     & | & \mbox{\lstinline@not@}\; \mathit{formula} \\
+     & | & \mathit{formula} \;\mbox{\lstinline@release@}\; \mathit{formula} \\
+     & | & \mathit{formula} \;\mbox{\lstinline@implies@}\; \mathit{formula} \\
+     & | & \mathit{formula} \;\mbox{\lstinline@equivalent@}\; \mathit{formula}\\
+     & | & \mbox{\lstinline@true@} \\
+     & | & \mbox{\lstinline@false@}\\
+\\
+\mathit{proposition} & ::= & \mbox{\lstinline@fun@}\; \mathit{atom} \mbox{\lstinline@:@} \mathit{atom} \mbox{\lstinline@/@} integer\\
+            & | &   \mbox{\lstinline@\{@} \mathit{atom} \mbox{\lstinline@,@} \mathit{atom} \mbox{\lstinline@\}@}\\
+            & | &   \mathit{var}\\
+\end{array}
+\end{displaymath}%
+\lthtmldisplayZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsection}
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting600}%
+\begin{lstlisting}
+Module = 
+  ltl_string2module_and_load
+  ("always (P => eventually Q)", 
+   ltl_test).
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline704}%
+$f$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline706}%
+$m$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline710}%
+$\mbox{\lstinline@monitor=\{@}m\mbox{\lstinline@,@}\mathit{private}
+ \mbox{\lstinline@\}@}$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline712}%
+$\mathit{private}$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting607}%
+\begin{lstlisting}[language=Erlang]
+monitor=
+  {ltl_test,                  %
+{void,                      %
+[{'P',fun p_mod:p_fun/3},
+    {'Q',fun q_mod:q_fun/3}]}} %
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting611}%
+\begin{lstlisting}[language=Erlang]
+predfun(ProgramState,Actions,PrivateState::term()) -> 
+   true | false | {true, term()}
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting615}%
+\begin{lstlisting}[language=Erlang]
+ltl:always
+  (ltl:implication
+   (ltl:prop(p),
+    ltl:next(ltl:eventually(ltl:prop(q)))))
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline684}%
+\(
+\mathit{G}(\mathit{p} \Rightarrow \mathit{X}(\mathit{F}\; \mathit{q}))
+\)%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline714}%
+$\mathit{p}$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline716}%
+$\mathit{q}$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting624}%
+\begin{lstlisting}[language=Erlang]
+does_request(_,Actions,_) ->
+  case mce_utils:findret
+    (fun (Action) -> 
+	 try
+	   true = mce_erl_actions:is_probe(Action),
+	   request = mce_erl_actions:get_probe_label(Action),
+	   {ok,mce_erl_actions:get_source(Action)}
+	 catch _:_ -> false end
+     end, Actions) of
+    {ok, Result} -> {true, Result};
+    _ -> false
+  end.
+\par
+does_release(_,Actions,ClientPid) ->
+  lists:any
+    (fun (Action) ->
+	 try
+	   true = mce_erl_actions:is_probe(Action),
+	   release = mce_erl_actions:get_probe_label(Action),
+	   ClientPid = mce_erl_actions:get_source(Action),
+	   true
+	 catch _:_ -> false end
+     end, Actions).
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting630}%
+\begin{lstlisting}[language=Erlang]
+mce:start(#mce_opts{program={resourcemanager,start,[]},
+                    monitor={always_eventually,
+                             {void,
+                              {{predfuns,does_request},
+                               {predfuns,does_release}}}},
+                    algorithm={mce_alg_buechi,void}}).
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{section}
+\stepcounter{section}
+{\newpage\clearpage
+\lthtmlfigureA{lstlisting639}%
+\begin{lstlisting}
+prop_parallel_mcerlang() ->
+  ?FORALL
+  (PCmds,
+   parallel_commands(?MODULE),
+   ?MCERLANG
+   ([...], % Names of modules in verified program
+    {H,AB,Res},
+    begin
+      ... % Program setup
+      run_parallel_commands(?MODULE,PCmds)
+    end,
+   ?WHENFAIL
+   (io:format("Sequential: ~p\nParallel: ~p\nRes: ~p\n",
+    [H,AB,Res]),
+   Res == ok))).
+\end{lstlisting}%
+\lthtmlfigureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{section}
+
+\end{document}

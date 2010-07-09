@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Monitors</TITLE>
+<META NAME="description" CONTENT="Monitors">
+<META NAME="keywords" CONTENT="userManual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="userManual.css">
+
+<LINK REL="next" HREF="node24.html">
+<LINK REL="previous" HREF="node17.html">
+<LINK REL="up" HREF="node15.html">
+<LINK REL="next" HREF="node21.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html341"
+  HREF="node21.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html337"
+  HREF="node15.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html331"
+  HREF="node19.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html339"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html342"
+  HREF="node21.html">Observational Power of Monitors</A>
+<B> Up:</B> <A NAME="tex2html338"
+  HREF="node15.html">Running McErlang</A>
+<B> Previous:</B> <A NAME="tex2html332"
+  HREF="node19.html">Listing of Available Algorithms</A>
+ &nbsp; <B>  <A NAME="tex2html340"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00043000000000000000"></A>
+<A NAME="monitors"></A>
+<BR>
+Monitors
+</H2>
+A monitor is conceptually an observer which examines
+program states, and program actions, 
+and which is run in lock-step with the the program to verify.
+A monitor has an internal state.
+
+<P>
+Upon examining a state, and the program action leading to the state
+from the previous state, a monitor can either return a set of
+new monitor states
+(signalling an acceptable program state), or an error condition signalling
+that the program state failed the monitor. 
+
+<P>
+There are two types of monitors in McErlang: ``safety monitors'' which
+are deterministic (i.e., return only a single next monitor state) and
+``b&#252;chi monitors'' which implement B&#252;chi automata. Such monitors
+may be nondeterministic, and in addition each monitor state is marked
+either ``accepting'' or ``non-accepting''. The @mce_alg_buechi@
+verification algorithm signals an error if it discovers an infinite loop
+(through the combined program state and monitor state graph)
+containing only accepting monitor states.
+
+<P>
+In the McErlang repository we have included
+an associated tool, Ltl2Buchi, written by Hans Svensson,
+which can automatically
+translate a formula in Linear Temporal Logic (LTL)
+to a corresponding B&#252;chi automaton. See Section&nbsp;<A HREF="node33.html#Ltl2buchi">4</A> for details.
+
+<P>
+In the code listing in Figure&nbsp;<A HREF="#mce_mon_nondeadlock">2</A>
+we show the source code for
+a simple safety to detect deadlocks.
+
+<DIV ALIGN="CENTER"><A NAME="mce_mon_nondeadlock"></A><A NAME="378"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 2:</STRONG>
+The @mce_mon_nondeadlock@ monitor</CAPTION>
+<TR><TD><IMG
+ WIDTH="540" HEIGHT="586" BORDER="0"
+ SRC="img67.png"
+ ALT="\begin{figure}\begin{lstlisting}[language=Erlang]
+-module(mce_mon_deadlock).
+-ex...
+...o -&gt; true
+end
+end.
+\par
+monitorType() -&gt; safety.
+\end{lstlisting}
+\end{figure}"></TD></TR>
+</TABLE>
+</DIV>
+A monitor should be an Erlang/OTP behaviour that conforms
+to the @mce_behav_monitor@ (see <TT>www.erlang.org</TT>
+for details on behaviours, in reality the only requirement on a McErlang
+monitor is that it exports
+three functions: @monitorType/0@,
+@init/1@ and @stateChange/3@.
+A ``B&#252;chi'' monitor must also export a function
+@stateType/1@ which marks a state
+as either @accepting@ or
+@nonaccepting@.
+
+<P>
+The @stateChange/3@ function
+gets called by the chosen verification
+algorithm using three parameters:
+<BR>
+<IMG
+ WIDTH="529" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img68.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+stateChange(ProgramState,MonitorState,VerificationStack)
+\end{lstlisting}">
+<BR>
+In the example the safety monitor examines
+the program state, and if all processes are
+deadlocked, an atom @deadlock@
+is returned (signalling a monitor failure),
+and if a non-deadlock process exists
+a new monitor state @ok,MonState@
+(identical to the old state)
+is returned.
+
+<P>
+We can check a general program with the above monitors by specifying
+it in a @mce_opts@ record:
+<BR>
+<IMG
+ WIDTH="541" HEIGHT="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="img69.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+mce:start( ...">
+<BR>
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html343"
+  HREF="node21.html">Observational Power of Monitors</A>
+<UL>
+<LI><A NAME="tex2html344"
+  HREF="node22.html">Using probe states to write properties</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html345"
+  HREF="node23.html">Some Available Monitors</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html341"
+  HREF="node21.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html337"
+  HREF="node15.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html331"
+  HREF="node19.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html339"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html342"
+  HREF="node21.html">Observational Power of Monitors</A>
+<B> Up:</B> <A NAME="tex2html338"
+  HREF="node15.html">Running McErlang</A>
+<B> Previous:</B> <A NAME="tex2html332"
+  HREF="node19.html">Listing of Available Algorithms</A>
+ &nbsp; <B>  <A NAME="tex2html340"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2010-07-05
+</ADDRESS>
+</BODY>
+</HTML>

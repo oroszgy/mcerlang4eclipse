@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Algorithm Termination</TITLE>
+<META NAME="description" CONTENT="Algorithm Termination">
+<META NAME="keywords" CONTENT="userManual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="userManual.css">
+
+<LINK REL="next" HREF="node19.html">
+<LINK REL="previous" HREF="node17.html">
+<LINK REL="up" HREF="node17.html">
+<LINK REL="next" HREF="node19.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html319"
+  HREF="node19.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html315"
+  HREF="node17.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html309"
+  HREF="node17.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html317"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html320"
+  HREF="node19.html">Listing of Available Algorithms</A>
+<B> Up:</B> <A NAME="tex2html316"
+  HREF="node17.html">State Space Traversal Algorithms</A>
+<B> Previous:</B> <A NAME="tex2html310"
+  HREF="node17.html">State Space Traversal Algorithms</A>
+ &nbsp; <B>  <A NAME="tex2html318"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION00042100000000000000">
+Algorithm Termination</A>
+</H3>
+
+<P>
+A verification may fail if the state space is too large to explore
+given the amount of memory available, this happens fairly frequently
+in model checking as most algorithms need to store encountered
+states in a state table. A possibility to alleviate this problem is to
+select the @mce_table_bitHash@ table module for storing encountered
+states (see Section&nbsp;<A HREF="node25.html#tables">3.5</A> for details).
+Another option is to use a bounded state stable,
+available as the module @mce_table_hash_bounded@.
+
+<P>
+Even though the state table size may be bounded, the verification
+algorithms may still run out of memory if the ``verification stack'',
+which stores the list of encountered states in a single program trace,
+grows too long (thus consuming too much memory).  This problem can
+occur if the module is faulty, for instance if an ever increasing
+counter is included in the program. Such counters are, potentially,
+process identifiers, references (created using
+@erlang:make_ref()@, timestamps (i.e., calling
+@erlang:now()@) and so on. However, McErlang makes sure,
+when model checking but <EM>not</EM> when simulating code, that process
+identifiers and references are not represented by ever increasing
+counters but selected <EM>fresh</EM> (i.e., as the least unused value in
+some ordering of pids and references).  A good method to detect
+problems with long verification stacks is to regularly output created
+states and to manually inspect them to see if some part of them look
+amiss (such printouts may be inserted in a custom monitor for
+instance).  There are other fixes as well: the length of the
+verification stack may be limited using the @pathLimit=N@
+option (in the @mce_opts@ record), and secondly a bounded
+stack implementation may be specified (using for instance a directive
+@stack=mce_stack_bounded,Size@ also in the
+@mce_opts@ record, see Section&nbsp;<A HREF="node26.html#stacks">3.6</A> for details).
+
+<P>
+To help detect such problems the model checking algorithms
+@mce_alg_safety@ and @mce_alg_behaviour@ regularly
+print out statistics regarding the number of states generated, and the
+length of the verification stack:
+<BR>
+<IMG
+ WIDTH="256" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img56.png"
+ ALT="\begin{lstlisting}
+Path depth at 10000 entries
+\end{lstlisting}">
+<BR>
+This indicates that the length of the maximum execution path has reached
+10000 entries.
+
+<P>
+<BR>
+<IMG
+ WIDTH="589" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img57.png"
+ ALT="\begin{lstlisting}
+Generated states 70000; checked states 247709; relation 3.5387
+\end{lstlisting}">
+<BR>
+The second printout indicates that 70000 distinct program states have
+been encountered, while the verification run has generated 247709 (non-unique)
+states in total, for a ratio of 3.5387.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html319"
+  HREF="node19.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html315"
+  HREF="node17.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html309"
+  HREF="node17.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html317"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html320"
+  HREF="node19.html">Listing of Available Algorithms</A>
+<B> Up:</B> <A NAME="tex2html316"
+  HREF="node17.html">State Space Traversal Algorithms</A>
+<B> Previous:</B> <A NAME="tex2html310"
+  HREF="node17.html">State Space Traversal Algorithms</A>
+ &nbsp; <B>  <A NAME="tex2html318"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2010-07-05
+</ADDRESS>
+</BODY>
+</HTML>

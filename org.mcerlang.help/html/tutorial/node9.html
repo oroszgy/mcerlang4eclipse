@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Model Checking a simple property</TITLE>
+<META NAME="description" CONTENT="Model Checking a simple property">
+<META NAME="keywords" CONTENT="tutorial">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="tutorial.css">
+
+<LINK REL="previous" HREF="node8.html">
+<LINK REL="up" HREF="node8.html">
+<LINK REL="next" HREF="node10.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html112"
+  HREF="node10.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html110"
+  HREF="node8.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html106"
+  HREF="node8.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html113"
+  HREF="node10.html">Model checking using B&#252;chi</A>
+<B> Up:</B> <A NAME="tex2html111"
+  HREF="node8.html">Model Checking the Messenger</A>
+<B> Previous:</B> <A NAME="tex2html107"
+  HREF="node8.html">Model Checking the Messenger</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00061000000000000000">
+Model Checking a simple property</A>
+</H2>
+
+<P>
+We can use the mce_alg_safety algorithm to check that a property
+holds on all the states of a program. We define the function
+safety in the run.erl file.
+
+<P>
+<PRE>
+safety() -&gt;
+  mce:start
+    (#ev_opts
+     {program={scenario,start,
+               [[[{logon,clara},{message,fred,"hola"},logoff],
+                [{logon,fred}]]]},
+      algorithm={mce_alg_safety,void}}).
+</PRE>
+
+<P>
+Because we do not specify a monitor, the default monitor mce_mon_test is
+used, which is always true. However, the model checker will check that
+no process terminates abnormally.
+
+<P>
+Let us execute the safety function.
+
+<P>
+<PRE>
+Eshell V5.6.4  (abort with ^G)
+1&gt; run:safety().
+Starting McErlang model checker environment...
+Starting mce_alg_safety(void) algorithm on program
+ scenario:start([[{logon,clara},{message,fred,"hola"},logoff],[{logon,fred}]])
+with monitor mce_mon_test(ok)
+
+*** Run ending. 2048 states explored, stored states 845.
+
+
+Execution terminated normally
+Access result using mce:result()
+ok
+</PRE>
+Apparently no process terminated abnormally.
+
+<P>
+<BR><HR>
+<ADDRESS>
+Orosz György
+2010-06-02
+</ADDRESS>
+</BODY>
+</HTML>

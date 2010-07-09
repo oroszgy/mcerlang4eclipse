@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Installing McErlang</TITLE>
+<META NAME="description" CONTENT="Installing McErlang">
+<META NAME="keywords" CONTENT="tutorial">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="tutorial.css">
+
+<LINK REL="next" HREF="node3.html">
+<LINK REL="previous" HREF="node1.html">
+<LINK REL="up" HREF="tutorial.html">
+<LINK REL="next" HREF="node3.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html43"
+  HREF="node3.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html41"
+  HREF="tutorial.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html35"
+  HREF="node1.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html44"
+  HREF="node3.html">The Messenger example</A>
+<B> Up:</B> <A NAME="tex2html42"
+  HREF="tutorial.html">McErlang: a Tutorial <SUP>1</SUP></A>
+<B> Previous:</B> <A NAME="tex2html36"
+  HREF="node1.html">Prerequisites</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00020000000000000000">
+Installing McErlang</A>
+</H1>
+
+<P>
+For the development of McErlang source code, documentation and examples we
+are using the Subversion revision control system. This means that there is a
+central repository where the code is located. To get your own local
+copy of the repository type the 
+following command in a terminal window.
+
+<P>
+<PRE>
+$ svn checkout https://babel.ls.fi.upm.es/repos/McErlang/trunk McErlang
+</PRE>
+
+<P>
+This command will create a local copy of all the McErlang code and
+examples. To compile McErlang it normally suffices to execute
+``make'' in the main McErlang directory.
+In the following we assume that McErlang is installed in the
+directory <code>~/McErlang</code>.
+
+<P>
+<PRE>
+$ cd McErlang; make
+</PRE>
+
+<P>
+The following examples assume that you have 
+put the directory <code>McErlang/scripts</code>
+in the ``command path'' of your shell.
+Consult the manual for your command shell if you are not sure how to do this.
+As an example, 
+if you are running a bash shell, the following piece of text
+can be added to the file <code>.profile</code>:
+<PRE>
+# set PATH so it includes the directory with McErlang scripts
+if [ -d ~/McErlang/scripts ] ; then
+    PATH=~/McErlang/scripts:"${PATH}"
+fi
+</PRE>
+
+<P>
+<BR><HR>
+<ADDRESS>
+Orosz György
+2010-06-02
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,221 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Model Checking a Simple Safety Property</TITLE>
+<META NAME="description" CONTENT="Model Checking a Simple Safety Property">
+<META NAME="keywords" CONTENT="tutorial">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="tutorial.css">
+
+<LINK REL="next" HREF="node15.html">
+<LINK REL="previous" HREF="node10.html">
+<LINK REL="up" HREF="tutorial.html">
+<LINK REL="next" HREF="node15.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html163"
+  HREF="node15.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html161"
+  HREF="tutorial.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html155"
+  HREF="node13.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html164"
+  HREF="node15.html">About this document ...</A>
+<B> Up:</B> <A NAME="tex2html162"
+  HREF="tutorial.html">McErlang: a Tutorial <SUP>1</SUP></A>
+<B> Previous:</B> <A NAME="tex2html156"
+  HREF="node13.html">Verification methodology</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00080000000000000000">
+Model Checking a Simple Safety Property</A>
+</H1>
+
+<P>
+An alternative approach to formulating the property in LTL and using
+the LTL2B&#252;chi translator is to implement a monitor/automaton
+directly
+
+<P>
+Let us check a simple property, that a user never logs on. We
+formulate this property as a safety property, ``something bad never
+happens'', in this case the ``bad'' thing is if a user logs on. The
+property is encoded as the monSendLogon monitor given below. But
+first we first modify the client code to emit a synthetic
+``probe'' action after having sent off a login message to the server:
+<PRE>
+client(Server_Node, Name) -&gt;
+    {messenger, Server_Node} ! {self(), logon, Name},
+    mce_erl:probe(logon),
+    await_result(),
+    client(Server_Node).
+</PRE>
+To implement a correctness property we implement a new module monSendLogon 
+that provides a stateChange function, which is
+called by McErlang whenever a new program state is encountered. 
+When a logon action is found, the stateChange function returns a tuple, 
+instead of as returning a new monitor state, thus indicating an error to the
+model checker. Note that instead of using a synthetic probe action we could
+have simply checked for the existence of a send action with a logon
+message inside.
+
+<P>
+<PRE>
+-module(monSendLogon).
+-export([init/1,stateChange/3,monitorType/0]).
+-include("stackEntry.hrl").
+
+-behaviour(mce_behav_monitor).
+
+monitorType() -&gt;
+  safety.
+
+init(State) -&gt;
+  {ok,State}.
+
+stateChange(_,MonState,Stack) -&gt;
+  case has_probe_action(actions(Stack)) of
+    {true, logon} -&gt; {somebody,logon};
+    no -&gt; {ok,MonState}
+  end.
+
+actions(Stack) -&gt;
+  {Entry,_} = mce_behav_stackOps:pop(Stack),
+  Entry#stackEntry.actions.
+ 
+has_probe_action(Actions) -&gt;
+   mce_utils:findret(fun mce_erl:match_probe_label/1, Actions).
+</PRE>
+
+<P>
+To invoke the model checker with this property we have
+defined the following function.
+
+<P>
+<PRE>
+logon() -&gt;
+  mce:start
+    (#ev_opts
+     {program={scenario,start,
+               [[[{logon,clara},{message,fred,"hola"},logoff],
+                [{logon,fred}]]]},
+      monitor={monSendLogon,[]},
+      algorithm={mce_alg_safety,void}}).
+</PRE>
+
+<P>
+The result of the execution is given below:
+
+<P>
+<PRE>
+Eshell V5.6.4  (abort with ^G)
+1&gt; run:logon().
+Starting McErlang model checker environment...
+Starting mce_alg_safety(void) algorithm on program
+ scenario:start([[{logon,clara},{message,fred,"hola"},logoff],[{logon,fred}]])
+with monitor monSendLogon([])
+
+
+***Monitor failed***
+monitor error:
+  {somebody,logon}
+Access counterexample using get(counterExample)
+Access result using mce:result()
+
+badmon
+</PRE>
+
+<P>
+We can now access the counter example:
+
+<P>
+<PRE>
+2&gt; mce_erl_debugger:start(mce:result()).
+Starting debugger with a stack trace
+Execution terminated with status:
+  monitor failure.
+
+...
+
+stack(@9)&gt; where().
+9: 
+
+
+8: process mess_client==&lt;n1,2&gt;: 
+    run function messenger:client([server_node,clara])
+    messenger==&lt;server_node,2&gt;!{{pid,n1,2},logon,clara}
+    sent signal {signal,n1,{message,{messenger,server_node},{{pid,n1,2},logon,clara}}} to node server_node
+    *** PROBE logon ***
+
+
+7: process &lt;n1,1&gt;: 
+    run function scenario:execute_commands([[{logon,clara},
+                                     {message,fred,"hola"},
+                                     logoff]])
+    spawn({messenger,client,[server_node,clara]},[]) --&gt; {pid,n1,2}
+    register(mess_client,{pid,n1,2}) --&gt; true
+    {mess_client,n1}!{message_to,fred,"hola"}
+    {mess_client,n1}!logoff
+    process &lt;n1,1&gt; was terminated
+    process &lt;n1,1&gt; died due to reason normal
+
+stack(@9)&gt;
+</PRE>
+The <TT>where()</TT> command displays the latest actions
+of the process. In stack frame 8 we can see that
+a message is sent to the messenger server,
+and next the probe action occurs.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html163"
+  HREF="node15.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html161"
+  HREF="tutorial.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html155"
+  HREF="node13.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html164"
+  HREF="node15.html">About this document ...</A>
+<B> Up:</B> <A NAME="tex2html162"
+  HREF="tutorial.html">McErlang: a Tutorial <SUP>1</SUP></A>
+<B> Previous:</B> <A NAME="tex2html156"
+  HREF="node13.html">Verification methodology</A></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Orosz György
+2010-06-02
+</ADDRESS>
+</BODY>
+</HTML>

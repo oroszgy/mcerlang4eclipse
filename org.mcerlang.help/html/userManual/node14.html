@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Customized Erlang/OTP Modules</TITLE>
+<META NAME="description" CONTENT="Customized Erlang/OTP Modules">
+<META NAME="keywords" CONTENT="userManual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="userManual.css">
+
+<LINK REL="previous" HREF="node13.html">
+<LINK REL="up" HREF="node10.html">
+<LINK REL="next" HREF="node15.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html252"
+  HREF="node15.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html248"
+  HREF="node10.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html244"
+  HREF="node13.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html250"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html253"
+  HREF="node15.html">Running McErlang</A>
+<B> Up:</B> <A NAME="tex2html249"
+  HREF="node10.html">Compiling Erlang code using</A>
+<B> Previous:</B> <A NAME="tex2html245"
+  HREF="node13.html">Compilation</A>
+ &nbsp; <B>  <A NAME="tex2html251"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00034000000000000000">
+Customized Erlang/OTP Modules</A>
+</H2>
+
+<P>
+In the distribution of McErlang we include
+tailored versions of some of the more
+commonly used Erlang/OTP libraries. The reason is twofold:
+sometimes they use features currently not translatable or implementable
+in McErlang (a case in point is @lists@ which
+contains fragments implemented in C), or whose implementation
+may be too inefficient in terms of memory use.
+A user may choose to use these modules or the standard ones (through the
+mechanism of mapping function calls described in Section&nbsp;<A HREF="node11.html#translation">2.1</A>).
+
+<P>
+Below we list these modules and the status of their current
+implementation (beware that changes occur frequently, consult the sources
+for exact status). These files reside in the directory
+<TT>lib/erlang/src</TT> unless otherwise indicated.
+
+<P>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><TT>mce_erl_ets.erl</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=255>Reimplements parts of the @erl_ets@ library. The implementation
+is timewise inefficient compared to the original library.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><TT>mce_erl_gen_event.erl</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=255>Reimplements the major part of the @gen_event@ library. 
+Hot code swapping is not supported.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><TT>mce_erl_gen_fsm.erl</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=255>Reimplements the major part of the @gen_fsm@ library. 
+Hot code swapping is not supported.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><TT>mce_erl_lists.erl</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=255>An imported version of the @lists@ library where the
+@member@ function (and others) is still implemented in Erlang.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><TT>mce_erl_rpc.erl</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=255>Reimplements a small portion of the @rpc@ library.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><TT>mce_erl_supervisor.erl</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=255>Reimplements a small portion of the @ev_supervisor@ library,
+essentially only supporting the creation of a process tree from
+a textual description, but does not support monitoring the 
+created process tree.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><TT>mce_erl_gen_server.erl</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=255>Reimplements the major part of the @gen_server@ library. 
+Hot code swapping is not supported.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><TT>mce_erl_gen_server/no_tag/</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=255>Reimplements the major part of the @gen_server@ library.</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><TT>mce_erl_gen_server.erl</TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=255>Hot code swapping is not supported. 
+Is timewise more efficient for checking generic server systems where
+clients always use the proper API (@gen_server:call@),
+and which does not implement fault detection or fault recovery.</TD>
+</TR>
+</TABLE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html252"
+  HREF="node15.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html248"
+  HREF="node10.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html244"
+  HREF="node13.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html250"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html253"
+  HREF="node15.html">Running McErlang</A>
+<B> Up:</B> <A NAME="tex2html249"
+  HREF="node10.html">Compiling Erlang code using</A>
+<B> Previous:</B> <A NAME="tex2html245"
+  HREF="node13.html">Compilation</A>
+ &nbsp; <B>  <A NAME="tex2html251"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2010-07-05
+</ADDRESS>
+</BODY>
+</HTML>

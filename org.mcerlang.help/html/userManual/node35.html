@@ -1,0 +1,287 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Interfacing with B&#252;chi Automatons</TITLE>
+<META NAME="description" CONTENT="Interfacing with B&#252;chi Automatons">
+<META NAME="keywords" CONTENT="userManual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="userManual.css">
+
+<LINK REL="previous" HREF="node34.html">
+<LINK REL="up" HREF="node33.html">
+<LINK REL="next" HREF="node36.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html518"
+  HREF="node36.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html514"
+  HREF="node33.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html510"
+  HREF="node34.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html516"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html519"
+  HREF="node36.html">A McErlang Application</A>
+<B> Up:</B> <A NAME="tex2html515"
+  HREF="node33.html">Ltl2Buchi: Translation LTL Properties</A>
+<B> Previous:</B> <A NAME="tex2html511"
+  HREF="node34.html">Writing LTL Properties</A>
+ &nbsp; <B>  <A NAME="tex2html517"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00052000000000000000">
+Interfacing with B&#252;chi Automatons</A>
+</H2>
+As an example we parse a LTL formula, convert into a B&#252;chi automaton,
+and load the generated module @ltl_test@
+into the Erlang runtime system
+using the following code fragment:
+<BR>
+<IMG
+ WIDTH="301" HEIGHT="69" ALIGN="BOTTOM" BORDER="0"
+ SRC="img110.png"
+ ALT="\begin{lstlisting}
+Module =
+ltl_string2module_and_load
+(''always (P =&gt; eventually Q)'',
+ltl_test).
+\end{lstlisting}">
+<BR>
+
+<P>
+The resulting module is used as an argument in the @monitor@ field
+in the @mce_opts@ record. 
+
+<P>
+The generated b&#252;chi monitor is parametric on the 
+variables that occur in the LTL formula (as propositional predicates). 
+These parameters are instantiated using the argument in the 
+specification of the @monitor@ field, in the 
+@mce_opts@ record. Concretely, if an LTL formula <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img111.png"
+ ALT="$f$"></SPAN>
+contains no variables then the corresponding module <SPAN CLASS="MATH"><IMG
+ WIDTH="18" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img112.png"
+ ALT="$m$"></SPAN>
+(containing the B&#252;chi automaton that is the result of translating <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img111.png"
+ ALT="$f$"></SPAN>)
+should be specified as:
+<!-- MATH
+ $\mbox{\lstinline@monitor=\{@}m\mbox{\lstinline@,@}\mathit{private}
+ \mbox{\lstinline@\}@}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="172" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img113.png"
+ ALT="$\mbox{\lstinline@monitor=\{@}m\mbox{\lstinline@,@}\mathit{private}
+\mbox{\lstinline@\}@}$"></SPAN>
+where <!-- MATH
+ $\mathit{private}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="53" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img114.png"
+ ALT="$\mathit{private}$"></SPAN> is the initial ``private'' state of
+the proposition predicates (see below for explanation).
+
+<P>
+In case the generated monitor contains variables
+the @monitor=@ specification accepts as argument
+a tuple containing two elements:
+the first is private data that predicate functions may initialise
+and use as they see fit, and the second 
+is a list containing binary tuples with a predicate variable
+as the first element and the function implementing
+the predicate as the second element.
+
+<P>
+The specification of the @ltl_test@ monitor above serves
+as a concrete example:
+<BR>
+<IMG
+ WIDTH="306" HEIGHT="89" ALIGN="BOTTOM" BORDER="0"
+ SRC="img115.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+monitor=
+{ltl_test, %
+{void, %
+[{'P',fun p_mod:p_fun/3},
+{'Q',fun q_mod:q_fun/3}]}} %
+\end{lstlisting}">
+<BR>
+We remap the @P@ variable to a call to 
+the function @p_mod:p_fun/3@ (and vice versa for 
+the @Q@ variable). The order in which the variable
+mappings are specified does not matter.
+
+<P>
+A function predicate is called by McErlang using three arguments:
+<BR>
+<IMG
+ WIDTH="505" HEIGHT="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="img116.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+predfun(ProgramState,Actions,PrivateState::term()) -&gt;
+true \vert false \vert {true, term()}
+\end{lstlisting}">
+<BR>
+where @ProgramState@ is the current program state,
+@Actions@ are the actions from the previous state,
+and @PrivateState@ is the current private state.
+A function predicate may return either @true@, signalling
+that the predicate holds in the program state,
+@false@ signalling that it doesn't, and
+@true, NewPrivateState@ signalling that the predicate
+holds, and replacing the old private state with the second element 
+of the returned tuple. 
+
+<P>
+Note that the use of a private state
+for passing information between formula predicates is a rather
+fragile mechanism, but if used wisely it adds expressive power.
+Consider the following example of the specification
+of a resource usage scheme. We want to verify that a request
+for the use of a resource is always eventually followed by a release
+of the said resource. In LTL we can specify the property
+as follows, using the @ltl@ module combinator functions:
+<BR>
+<IMG
+ WIDTH="405" HEIGHT="70" ALIGN="BOTTOM" BORDER="0"
+ SRC="img117.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+ltl:always
+(ltl:implication
+(ltl:prop(p),
+ltl:next(ltl:eventually(ltl:prop(q)))))
+\end{lstlisting}">
+<BR>
+or more symbolically, 
+<!-- MATH
+ $\mathit{G}(\mathit{p} \Rightarrow \mathit{X}(\mathit{F}\; \mathit{q}))$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="116" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img118.png"
+ ALT="\(
+\mathit{G}(\mathit{p} \Rightarrow \mathit{X}(\mathit{F}\; \mathit{q}))
+\)"></SPAN>.
+
+<P>
+The two predicate functions corresponding to <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img119.png"
+ ALT="$\mathit{p}$"></SPAN>
+and <SPAN CLASS="MATH"><IMG
+ WIDTH="12" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img120.png"
+ ALT="$\mathit{q}$"></SPAN> are coded as @does_request@
+and @does_release@ below. They assume that the
+code of the client has been annotated with two probe actions: a release 
+action with the atom @release@ as label and
+a request action with the atom @request@ as label.
+
+<P>
+<BR>
+<IMG
+ WIDTH="577" HEIGHT="433" ALIGN="BOTTOM" BORDER="0"
+ SRC="img121.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+does_request(_,Actions,_) -&gt;
+case mce_utils...
+...t_source(Action),
+true
+catch _:_ -&gt; false end
+end, Actions).
+\end{lstlisting}">
+<BR>
+
+<P>
+The first function searches for probe actions labelled with
+@request@, and if one is found, returns the process identifier
+of the client process issuing the probe action as private date.
+The second function searches for probe actions labelled
+with @release@ and which moreover was issued
+by the same client process as the @request@
+(checked via the @ClientPid@ parameter).
+
+<P>
+Supposing that the translated property is stored in
+the file @always_eventually@, the above
+predicate functions are located in the module predfuns,
+and the program
+is started using the function @resourcemanager:start()@ 
+then we can invoke a model checking run as follows:
+<BR>
+<IMG
+ WIDTH="550" HEIGHT="108" ALIGN="BOTTOM" BORDER="0"
+ SRC="img122.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+mce:start( ...">
+<BR>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html518"
+  HREF="node36.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html514"
+  HREF="node33.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html510"
+  HREF="node34.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html516"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html519"
+  HREF="node36.html">A McErlang Application</A>
+<B> Up:</B> <A NAME="tex2html515"
+  HREF="node33.html">Ltl2Buchi: Translation LTL Properties</A>
+<B> Previous:</B> <A NAME="tex2html511"
+  HREF="node34.html">Writing LTL Properties</A>
+ &nbsp; <B>  <A NAME="tex2html517"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2010-07-05
+</ADDRESS>
+</BODY>
+</HTML>

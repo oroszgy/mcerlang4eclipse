@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The Messenger example</TITLE>
+<META NAME="description" CONTENT="The Messenger example">
+<META NAME="keywords" CONTENT="tutorial">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="tutorial.css">
+
+<LINK REL="next" HREF="node4.html">
+<LINK REL="previous" HREF="node2.html">
+<LINK REL="up" HREF="tutorial.html">
+<LINK REL="next" HREF="node4.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html53"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html51"
+  HREF="tutorial.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html45"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html54"
+  HREF="node4.html">Executing the messenger example</A>
+<B> Up:</B> <A NAME="tex2html52"
+  HREF="tutorial.html">McErlang: a Tutorial <SUP>1</SUP></A>
+<B> Previous:</B> <A NAME="tex2html46"
+  HREF="node2.html">Installing McErlang</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00030000000000000000">
+The Messenger example</A>
+</H1>
+
+<P>
+To illustrate the use of McErlang we consider the messenger example
+from the ``Getting started with Erlang'' document in the Erlang/OTP
+R12B documentation<A NAME="tex2html2"
+  HREF="footnode.html#foot78"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>.
+To begin working with the example, locate the source code for the
+messenger example (<B>messenger.erl</B>) in the McErlang/examples/Simple_messenger 
+directory.
+
+<P>
+The messenger is a program which allows users to log in on different
+nodes and send simple messages to each other. The messenger allows
+"clients" to connect to a central server, specifying their identities
+and locations that are then stored in the state of the server. Thus a
+user won't need to know the name of the Erlang node where a user is
+located to send a message to that user, only his identity.
+
+<P>
+Let us consider the example with three nodes depicted in
+Fig. <A HREF="#logon"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="/usr/share/latex2html/icons/crossref.png"></A>, the node server_node where the messenger server is
+already running and two other nodes, Node1 and Node2. If a process in
+Node1 calls the messenger:logon(clara) command the result of this call
+is the spawning of a process registered as mess_client that will send
+a message to the messenger server containing the name of the user and
+the pid of the mess_client. The messenger will then look into its
+state and if it is empty it will add the new user to the UsersList and
+send a confirmation message to the mess_cient.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="logon"></A><A NAME="57"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
+User clara sends a logon message to the messenger server</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+[width=0.75]logon
+   
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+Lets now assume that both a user clara and a user fred in
+fig. <A HREF="#send"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="/usr/share/latex2html/icons/crossref.png"></A> are logged on and clara wants to send a message to
+fred. Again the message will be sent from the mess_client running in
+Node1 to the messenger server which, after checking that both clara
+and fred are logged on, will forward the message to the mess_client
+running in Node1.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="send"></A><A NAME="65"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
+User clara sends a message to user fred</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+[width=0.75]send
+   
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+Upon a logoff, the mess_client will send a message to the messenger
+server that will produce the deletion of the user that wanted to log
+off from the UsersList maintained by the messenger server.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html53"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html51"
+  HREF="tutorial.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html45"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html54"
+  HREF="node4.html">Executing the messenger example</A>
+<B> Up:</B> <A NAME="tex2html52"
+  HREF="tutorial.html">McErlang: a Tutorial <SUP>1</SUP></A>
+<B> Previous:</B> <A NAME="tex2html46"
+  HREF="node2.html">Installing McErlang</A></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Orosz György
+2010-06-02
+</ADDRESS>
+</BODY>
+</HTML>

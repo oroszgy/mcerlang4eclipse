@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Using probe states to write properties</TITLE>
+<META NAME="description" CONTENT="Using probe states to write properties">
+<META NAME="keywords" CONTENT="tutorial">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="tutorial.css">
+
+<LINK REL="next" HREF="node13.html">
+<LINK REL="previous" HREF="node11.html">
+<LINK REL="up" HREF="node10.html">
+<LINK REL="next" HREF="node13.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html145"
+  HREF="node13.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html143"
+  HREF="node10.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html137"
+  HREF="node11.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html146"
+  HREF="node13.html">Verification methodology</A>
+<B> Up:</B> <A NAME="tex2html144"
+  HREF="node10.html">Model checking using B&#252;chi</A>
+<B> Previous:</B> <A NAME="tex2html138"
+  HREF="node11.html">Using probe actions to</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00072000000000000000">
+Using probe states to write properties</A>
+</H2>
+
+<P>
+Working with probe actions in LTL formulas can sometimes be difficult,
+as we have manually ``remember'' the occurrence of
+important actions in the formula. 
+In formulas (1) and (2) above, this was accomplished using the 
+until formula.
+
+<P>
+Instead of using probe actions we can use so called ``probe states''.
+In contrast to probe actions, which are enabled in a single
+transition step only, such probes are persistent from the point in 
+the execution of the program when they are enabled, until they 
+are explicitly deleted.
+
+<P>
+As an example we instrument the login code of the server in
+messenger.erl to record, using the function
+mce_erl:probe_state, the fact that a user has logged in:
+<BR>
+<IMG
+ WIDTH="415" HEIGHT="221" ALIGN="BOTTOM" BORDER="0"
+ SRC="img9.png"
+ ALT="\begin{lstlisting}
+server_logon(From, Name, User_List) -&gt;
+%
+case lists:keymembe...
+...e_state({logged_on,Name}),
+[{From, Name}\vert User_List]
+end.
+\end{lstlisting}">
+<BR>
+
+<P>
+Similarly we delete the probe state using the function
+mce_erl:del_probe_state when a user logs out:
+<BR>
+<IMG
+ WIDTH="406" HEIGHT="168" ALIGN="BOTTOM" BORDER="0"
+ SRC="img10.png"
+ ALT="\begin{lstlisting}
+server_logoff(From,User_List) -&gt;
+case lists:keysearch(From,1...
+...ame});
+false -&gt;
+ok
+end,
+lists:keydelete(From,1,User_List).
+\end{lstlisting}">
+<BR>
+
+<P>
+We can test for the existence of a probe state using the function
+@mce_erl:has_probe_state@ as exemplified in the function
+@logged_on@ in the basicPredicates.erl file which checks if
+a user is logged on:
+<BR>
+<IMG
+ WIDTH="282" HEIGHT="87" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="\begin{lstlisting}
+logged_on(Name) -&gt;
+fun (State,_,_) -&gt;
+mce_erl:has_probe_state
+({logged_on,Name},State)
+end.
+\end{lstlisting}">
+<BR>
+This predicate will be abbreviated as ``t'' below.
+
+<P>
+We can now reformulate the second property above, removing
+the until operator and one eventually operator with the
+<!-- MATH
+ $\mathit{always}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="50" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img12.png"
+ ALT="$\mathit{always}$"></SPAN> operator, which holds if its argument holds over
+the whole execution trace:
+
+<P>
+<PRE>
+"always ((P and T) =&gt; eventually (R or not T))"
+</PRE>
+
+<P>
+Note that since <SPAN CLASS="MATH"><IMG
+ WIDTH="17" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img13.png"
+ ALT="$\mathit{T}$"></SPAN> is a state predicate we can safely negate
+it to compute its logical negation (``the user is not logged on'')
+whereas the negation of the action predicate <!-- MATH
+ $\mathit{not Q}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="40" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img14.png"
+ ALT="$\mathit{not Q}$"></SPAN> in
+properties (1) and (2) only expresses that the ``logon action is not
+present in the current transition'' (but it may have occurred earlier
+in the execution of the program).
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html145"
+  HREF="node13.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html143"
+  HREF="node10.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html137"
+  HREF="node11.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html146"
+  HREF="node13.html">Verification methodology</A>
+<B> Up:</B> <A NAME="tex2html144"
+  HREF="node10.html">Model checking using B&#252;chi</A>
+<B> Previous:</B> <A NAME="tex2html138"
+  HREF="node11.html">Using probe actions to</A></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Orosz György
+2010-06-02
+</ADDRESS>
+</BODY>
+</HTML>

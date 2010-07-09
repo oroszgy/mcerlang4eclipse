@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Some Available Monitors</TITLE>
+<META NAME="description" CONTENT="Some Available Monitors">
+<META NAME="keywords" CONTENT="userManual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="userManual.css">
+
+<LINK REL="previous" HREF="node21.html">
+<LINK REL="up" HREF="node20.html">
+<LINK REL="next" HREF="node24.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html377"
+  HREF="node24.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html373"
+  HREF="node20.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html369"
+  HREF="node22.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html375"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html378"
+  HREF="node24.html">Abstractions</A>
+<B> Up:</B> <A NAME="tex2html374"
+  HREF="node20.html">Monitors</A>
+<B> Previous:</B> <A NAME="tex2html370"
+  HREF="node22.html">Using probe states to</A>
+ &nbsp; <B>  <A NAME="tex2html376"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION00043200000000000000">
+Some Available Monitors</A>
+</H3>
+Most monitors are rather application specific, but there are 
+some generic ones implemented. Note also that in some situations
+it may not be necessary to specify any monitor at all; the default
+monitor is the always true one, but since the default setting
+for the @fail_on_exit@ flag of @mce_opts@
+is true, the model checker will verify that no process 
+is ever abnormally terminated.
+
+<P>
+Below we show the tuples naming the monitors, and their
+respective arguments (to be specified in the @monitor@
+field of @mce_opts@).
+
+<UL>
+<LI>
+<BR>
+<IMG
+ WIDTH="339" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img77.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+{mce_mon_queue, MaxQueueSize::int()}
+\end{lstlisting}">
+<BR>
+Checks that all queues contain at most MaxQueueSize elements.
+
+<P>
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="282" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img78.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+{mce_mon_deadlock, Any::any()}
+\end{lstlisting}">
+<BR>
+Checks that there is at least one non-deadlocked process.
+</LI>
+</UL>
+
+<P>
+<BR><HR>
+<ADDRESS>
+
+2010-07-05
+</ADDRESS>
+</BODY>
+</HTML>

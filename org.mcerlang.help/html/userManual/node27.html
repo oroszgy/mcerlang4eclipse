@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Schedulers</TITLE>
+<META NAME="description" CONTENT="Schedulers">
+<META NAME="keywords" CONTENT="userManual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="userManual.css">
+
+<LINK REL="next" HREF="node28.html">
+<LINK REL="previous" HREF="node26.html">
+<LINK REL="up" HREF="node15.html">
+<LINK REL="next" HREF="node28.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html425"
+  HREF="node28.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html421"
+  HREF="node15.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html415"
+  HREF="node26.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html423"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html426"
+  HREF="node28.html">The Debugger: Examining Counterexamples</A>
+<B> Up:</B> <A NAME="tex2html422"
+  HREF="node15.html">Running McErlang</A>
+<B> Previous:</B> <A NAME="tex2html416"
+  HREF="node26.html">Stacks</A>
+ &nbsp; <B>  <A NAME="tex2html424"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00047000000000000000"></A>
+<A NAME="schedulers"></A>
+<BR>
+Schedulers
+</H2>
+A scheduler determines the scheduling policy during a simulation
+run (using the @mce_alg_simulation@ algorithm).
+Figure&nbsp;<A HREF="#locker_sched">3</A> illustrates a particular implementation.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="locker_sched"></A><A NAME="469"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3:</STRONG>
+A custom scheduler</CAPTION>
+<TR><TD><IMG
+ WIDTH="712" HEIGHT="564" BORDER="0"
+ SRC="img88.png"
+ ALT="\begin{figure}\begin{lstlisting}[language=Erlang]
+-module(locker_sched).
+-export...
+...t_send_pid(Action)=:=locker;
+false -&gt; false
+end.
+\end{lstlisting}
+\end{figure}"></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+The scheduler forbids any action which is the result of sending
+a message to a process with the registered name @locker@.
+This scheduler is used in the example on page&nbsp;<A HREF="node19.html#mce_alg_combine"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="/usr/share/latex2html/icons/crossref.png"></A>
+to steer a simulation algorithm, which is followed by running
+a model checking algorithm (@mce_alg_safety@).
+The idea is that the simulation part should explore the initial startup
+of the system, forbidding any action that involves actually requesting
+resources from the @locker@ process. Once there is no schedulable
+transition (except the ones involving sends to the locker) the simulation
+phase ends, and model checking begins.
+
+<P>
+<BR><HR>
+<ADDRESS>
+
+2010-07-05
+</ADDRESS>
+</BODY>
+</HTML>

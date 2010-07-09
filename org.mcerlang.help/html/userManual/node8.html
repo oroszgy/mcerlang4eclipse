@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Node and Global Dictionaries</TITLE>
+<META NAME="description" CONTENT="Node and Global Dictionaries">
+<META NAME="keywords" CONTENT="userManual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="userManual.css">
+
+<LINK REL="next" HREF="node9.html">
+<LINK REL="previous" HREF="node7.html">
+<LINK REL="up" HREF="node7.html">
+<LINK REL="next" HREF="node9.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html180"
+  HREF="node9.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html176"
+  HREF="node7.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html170"
+  HREF="node7.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html178"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html181"
+  HREF="node9.html">Node Functions</A>
+<B> Up:</B> <A NAME="tex2html177"
+  HREF="node7.html">Extensions</A>
+<B> Previous:</B> <A NAME="tex2html171"
+  HREF="node7.html">Extensions</A>
+ &nbsp; <B>  <A NAME="tex2html179"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H4><A NAME="SECTION00025010000000000000">
+Node and Global Dictionaries</A>
+</H4>
+
+<P>
+In addition to the normal process dictionary McErlang also implements
+a node dictionary and a global dictionary. These new dictionaries
+implement the same application
+interface as the process dictionary, except every function
+is suffixed with "n" for the node dictionary, and with "g" for
+the global dictionary. For example, the node dictionary can be
+accessed using the functions 
+@mcerlang:nerase/0@, 
+@mcerlang:nerase/1@, 
+@mcerlang:nget/0@, 
+@mcerlang:nget/1@
+and @mcerlang:nput/2@.
+
+<P>
+These additional dictionaries are useful
+to, for instance, implement a store that
+is persistent in case of process crashes
+(the node dictionary) or both process and
+node crashes (the global dictionary).
+
+<P>
+<BR><HR>
+<ADDRESS>
+
+2010-07-05
+</ADDRESS>
+</BODY>
+</HTML>

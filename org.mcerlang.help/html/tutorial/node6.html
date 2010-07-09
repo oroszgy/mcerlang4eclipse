@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Compiling the Messenger Example using McErlang</TITLE>
+<META NAME="description" CONTENT="Compiling the Messenger Example using McErlang">
+<META NAME="keywords" CONTENT="tutorial">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="tutorial.css">
+
+<LINK REL="previous" HREF="node5.html">
+<LINK REL="up" HREF="node4.html">
+<LINK REL="next" HREF="node7.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html83"
+  HREF="node7.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html81"
+  HREF="node4.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html77"
+  HREF="node5.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html84"
+  HREF="node7.html">Debugging the messenger example</A>
+<B> Up:</B> <A NAME="tex2html82"
+  HREF="node4.html">Executing the messenger example</A>
+<B> Previous:</B> <A NAME="tex2html78"
+  HREF="node5.html">Writing a scenario</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00042000000000000000">
+Compiling the Messenger Example using McErlang</A>
+</H2>
+
+<P>
+To execute Erlang code under the McErlang model checker a translation
+step is necessary, whereby Erlang code is translated into modified
+Erlang code suitable for running under the control of the McErlang
+model checker (which has its proper runtime system for managing
+processes, communication and nodes).  Thereafter, a normal Erlang
+compilation translates the modified source code into beam (or native)
+object files.
+
+<P>
+To compile the Messenger example
+type ``make'' in the McErlang/examples/Simple_messenger directory. 
+
+<P>
+<PRE>
+~/McErlang/examples/Simple_messenger$ make
+../../scripts/mcerl_compiler -sources messenger.erl monSendLogon.erl \
+                             scenario.erl test.erl testl.erl tests.erl
+</PRE>
+
+<P>
+The code resulting from the source-to-source translation and the beam
+files are stored in the ebin directory. In the ebin directory, if
+we type ``mcerl'', an erlang shell is started.
+
+<P>
+<PRE>
+~/McErlang/examples/Simple_messenger$ cd ebin/
+~/McErlang/examples/Simple_messenger/ebin$ ../../../scripts/mcerl
+Erlang (BEAM) emulator version 5.6.5 [source] [smp:4] [async-threads:0] [hipe] [kernel-poll:false]
+
+Eshell V5.6.5  (abort with ^G)
+1&gt;
+</PRE>
+
+<P>
+From this shell we can invoke the verification functions implemented
+in the <B>run.erl </B> file in the McErlang/examples/Simple_messenger directory. We see some
+examples in the following sections.
+
+<P>
+<BR><HR>
+<ADDRESS>
+Orosz György
+2010-06-02
+</ADDRESS>
+</BODY>
+</HTML>

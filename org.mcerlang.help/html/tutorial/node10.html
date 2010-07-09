@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Model checking using B&#252;chi monitors</TITLE>
+<META NAME="description" CONTENT="Model checking using B&#252;chi monitors">
+<META NAME="keywords" CONTENT="tutorial">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="tutorial.css">
+
+<LINK REL="next" HREF="node14.html">
+<LINK REL="previous" HREF="node8.html">
+<LINK REL="up" HREF="tutorial.html">
+<LINK REL="next" HREF="node11.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html122"
+  HREF="node11.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html120"
+  HREF="tutorial.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html114"
+  HREF="node9.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html123"
+  HREF="node11.html">Using probe actions to</A>
+<B> Up:</B> <A NAME="tex2html121"
+  HREF="tutorial.html">McErlang: a Tutorial <SUP>1</SUP></A>
+<B> Previous:</B> <A NAME="tex2html115"
+  HREF="node9.html">Model Checking a simple</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00070000000000000000">
+Model checking using B&#252;chi monitors</A>
+</H1>
+
+<P>
+The alternative we will consider here is to express the desired
+property in Lineal Temporal Logic (LTL), and to use the LTL2Buchi tool
+developed by Hans Svensson and distributed with McErlang to
+automatically translate an LTL formulae into a B&#252;chi monitor (see
+User Manual).
+
+<P>
+We have model checked several interesting safety and liveness
+properties of the messenger example. Some of them can be found in the
+run.erl file. One such property can be informally expressed as
+follows: if a user who is logged on sends a message to another user
+who is also logged on then the recipient of the message will
+eventually receive the message. As mentioned before, McErlang allows
+access to the program states and the actions between states. We
+explain in the following sections how this information can be used to
+write properties.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html124"
+  HREF="node11.html">Using probe actions to write properties</A>
+<LI><A NAME="tex2html125"
+  HREF="node12.html">Using probe states to write properties</A>
+<LI><A NAME="tex2html126"
+  HREF="node13.html">Verification methodology</A>
+</UL>
+<!--End of Table of Child-Links-->
+<BR><HR>
+<ADDRESS>
+Orosz György
+2010-06-02
+</ADDRESS>
+</BODY>
+</HTML>

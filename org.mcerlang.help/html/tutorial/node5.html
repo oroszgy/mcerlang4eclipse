@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Writing a scenario</TITLE>
+<META NAME="description" CONTENT="Writing a scenario">
+<META NAME="keywords" CONTENT="tutorial">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="tutorial.css">
+
+<LINK REL="next" HREF="node6.html">
+<LINK REL="previous" HREF="node4.html">
+<LINK REL="up" HREF="node4.html">
+<LINK REL="next" HREF="node6.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html75"
+  HREF="node6.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html73"
+  HREF="node4.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html67"
+  HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html76"
+  HREF="node6.html">Compiling the Messenger Example</A>
+<B> Up:</B> <A NAME="tex2html74"
+  HREF="node4.html">Executing the messenger example</A>
+<B> Previous:</B> <A NAME="tex2html68"
+  HREF="node4.html">Executing the messenger example</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00041000000000000000">
+Writing a scenario</A>
+</H2>
+
+<P>
+In the file <B>scenario.erl</B> file in the McErlang/examples/Simple_messenger directory we
+have defined a function named ``start'' which should be invoked with a
+list of commands representing the commands that each user sends to the
+messenger. The start function first spawns a process executing the
+module:start_server function on the node named ``server''; the result
+is that the messenger process (the server) is created. Then a process
+is created for each simulated user, running on separate nodes.  These
+user processes send commands to the messenger process, which forwards
+them to users on other nodes (in case the command is a request to send
+a message to another user).
+
+<P>
+<PRE>
+-module(scenario).
+-export([start/1,start_clients/2,execute_commands/1]).
+
+start(Commands) -&gt;
+    spawn(server_node,messenger,start_server,[]),
+    start_clients(Commands,1).
+
+start_clients([],N) -&gt; ok;
+start_clients([Commands|Rest],N) -&gt;
+    Node = list_to_atom("n"++integer_to_list(N)),
+    spawn(Node,?MODULE,execute_commands,[Commands]),
+    start_clients(Rest,N+1).
+
+execute_commands(Commands) -&gt;
+    lists:foreach
+    (fun (Command) -&gt;
+         case Command of
+             {logon, Client} -&gt;
+                 messenger:logon(Client);
+             {message,Receiver,Msg} -&gt;
+                 messenger:message(Receiver,Msg);
+             logoff -&gt;
+                 messenger:logoff()
+         end
+     end, Commands).
+</PRE>
+
+<P>
+<BR><HR>
+<ADDRESS>
+Orosz György
+2010-06-02
+</ADDRESS>
+</BODY>
+</HTML>

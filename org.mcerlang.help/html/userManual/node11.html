@@ -1,0 +1,270 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Translation Phase</TITLE>
+<META NAME="description" CONTENT="Translation Phase">
+<META NAME="keywords" CONTENT="userManual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="userManual.css">
+
+<LINK REL="next" HREF="node12.html">
+<LINK REL="previous" HREF="node10.html">
+<LINK REL="up" HREF="node10.html">
+<LINK REL="next" HREF="node12.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html218"
+  HREF="node12.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html214"
+  HREF="node10.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html208"
+  HREF="node10.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html216"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html219"
+  HREF="node12.html">Transformation Issues</A>
+<B> Up:</B> <A NAME="tex2html215"
+  HREF="node10.html">Compiling Erlang code using</A>
+<B> Previous:</B> <A NAME="tex2html209"
+  HREF="node10.html">Compiling Erlang code using</A>
+ &nbsp; <B>  <A NAME="tex2html217"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00031000000000000000"></A>
+<A NAME="translation"></A>
+<BR>
+Translation Phase
+</H2>
+
+<P>
+There are essentially two types of source-to-source transformations
+performed by the translation phase:
+
+<OL>
+<LI>Programs running under the McErlang model checker need to invoke
+the McErlang application programming interface 
+(e.g., the module mcerlang) 
+instead of the normal Erlang API (e.g., the module erlang).
+Thus the transformation transforms the code so that e.g. instead
+of calling the function erlang:send/2 the modified
+program calls mcerlang:send/2.
+</LI>
+<LI>Receive statements cannot be executed directly in McErlang,
+as internally in McErlang communication between (simulated)
+processes does not use message passing. In fact, McErlang normally
+runs in a single process, regardless of how many processes are
+spawned by the simulated code. During translation
+receive statements are transformed into an expression
+which returns a special value (a kind of continuation),
+signalling the intention to execute a receive statement. 
+To ensure that such special return
+values are not captured by the environment in which they reside,
+the transformation must also modify the environment.
+An example: 
+<BR>
+<IMG
+ WIDTH="219" HEIGHT="89" ALIGN="BOTTOM" BORDER="0"
+ SRC="img10.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+echo() -&gt;
+receive
+{msg,Pid,Msg} -&gt; ok
+end,
+Pid!{echo,Msg}.
+\end{lstlisting}">
+<BR>
+If we just transform the receive statement we would loose
+its special return value:
+<BR>
+<IMG
+ WIDTH="219" HEIGHT="89" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="\begin{lstlisting}[language=Erlang,mathescape]
+echo() -&gt;
+$[\,[$receive
+{msg,Pid,Msg} -&gt; ok
+end$]\,]$,
+Pid!{echo,Msg}.
+\end{lstlisting}">
+<BR>
+(where <SPAN CLASS="MATH"><IMG
+ WIDTH="12" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img12.png"
+ ALT="$[[$"></SPAN>...<SPAN CLASS="MATH"><IMG
+ WIDTH="12" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img13.png"
+ ALT="$]]$"></SPAN> performs the translation
+of a receive statement).
+Instead we (conceptually)
+embed the translated receive statement in a new let construct:
+<BR>
+<IMG
+ WIDTH="238" HEIGHT="108" ALIGN="BOTTOM" BORDER="0"
+ SRC="img14.png"
+ ALT="\begin{lstlisting}[language=Erlang,mathescape]
+echo() -&gt;
+let X =
+$[\,[$receive
+{msg,Pid,Msg} -&gt; ok
+end$]\,]$
+in Pid!{echo,Msg}.
+\end{lstlisting}">
+<BR>
+where the semantics that the argument part of the let construct
+are executed immediately, and if that part returns a special value,
+then a special value with the body part as continuation is returned.
+If the argument part returns a normal expression, then the body
+part is executed normally.
+
+<P>
+Thus to complete the transformation we need to know, 
+for every function call Module:Fun(Arguments)
+in the code, whether the called function can ever execute a receive statement 
+(and if so transform it, as well as the calling context, and its
+calling context, and so on). 
+In other words, the transformation phase needs access to all source
+code modules comprising a program (including libraries),
+as it implements a global analysis identifying exactly 
+which function calls can result in a (receive) side effect.
+</LI>
+</OL>
+
+<P>
+The transformation is implemented on the HiPE Core Erlang format.
+The standard Erlang compiler generates Core Erlang code, which
+is subjected to a number of transformations, and finally
+the standard Erlang compiler is used to generate beam (or native)
+code from the resulting transformed Core Erlang code.
+
+<P>
+The mapping of function calls, and information regarding which
+functions in binary modules (for which no source code is available)
+has side effects, is defined in a configuration file.
+This configuration file is read during the compilation phase;
+the default is to use ``<TT>$MCERLANG/configuration/funinfo.txt</TT>''.
+
+<P>
+We will describe the semantics of the transformation configuration 
+file by explaining an excerpt:
+<BR>
+<IMG
+ WIDTH="558" HEIGHT="166" ALIGN="BOTTOM" BORDER="0"
+ SRC="img15.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+[
+{gen_server,[{translated_to,mce_erl_gen_s...
+...{{erlang,send,2},[snd,{translated_to,{mcerlang,send}}]},
+...
+]
+\end{lstlisting}">
+<BR>
+The configuration information is represented as a normal Erlang term,
+and contains a number of commands, on two basic formats:
+<BR>
+<IMG
+ WIDTH="349" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img16.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+{module, [attribute1,...,attributeN]}
+\end{lstlisting}">
+<BR>
+or
+<BR>
+<IMG
+ WIDTH="549" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img17.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+{{module,functionname,arity}, [attribute1,...,attributeN]}
+\end{lstlisting}">
+<BR>
+As an example, consider the first line in the above specification:
+<BR>
+<IMG
+ WIDTH="463" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img18.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+{gen_server,[{translated_to,mce_erl_gen_server}]}
+\end{lstlisting}">
+<BR>
+This command maps any call to a function in the gen_server module
+to a corresponding call in the module mce_erl_gen_server.
+The command @erlang,[rcv,false]@ expresses that
+by default no function in the @erlang@ module will ever
+execute a receive statement.
+In the next line we override this default by specifying that
+indeed erlang:spawn/4 (which spawns a function on a specified
+node) can actually cause a receive statement to be executed, and secondly
+that it should be mapped to calls to mcerlang:spawn/4 instead.
+Next the erlang:send/2 function is declared to cause a sending
+action (see explanation of the compiler option 
+-sends_are_sefs).
+
+<P>
+Depending on the particular application requirements, it may be a good
+idea to use the OTP version of a particular module, or use a (simplified)
+module that we provide. Such ``McErlang versions'' of normal OTP modules
+normally reside in ``<TT>$MCERLANG/lib/erlang/src</TT>'' and its
+subdirectories.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html218"
+  HREF="node12.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html214"
+  HREF="node10.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html208"
+  HREF="node10.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html216"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html219"
+  HREF="node12.html">Transformation Issues</A>
+<B> Up:</B> <A NAME="tex2html215"
+  HREF="node10.html">Compiling Erlang code using</A>
+<B> Previous:</B> <A NAME="tex2html209"
+  HREF="node10.html">Compiling Erlang code using</A>
+ &nbsp; <B>  <A NAME="tex2html217"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2010-07-05
+</ADDRESS>
+</BODY>
+</HTML>

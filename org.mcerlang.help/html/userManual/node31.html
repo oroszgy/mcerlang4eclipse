@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The Shell: Experimenting with McErlang</TITLE>
+<META NAME="description" CONTENT="The Shell: Experimenting with McErlang">
+<META NAME="keywords" CONTENT="userManual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="userManual.css">
+
+<LINK REL="previous" HREF="node28.html">
+<LINK REL="up" HREF="node15.html">
+<LINK REL="next" HREF="node32.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html471"
+  HREF="node32.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html467"
+  HREF="node15.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html463"
+  HREF="node30.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html469"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html472"
+  HREF="node32.html">Limitations</A>
+<B> Up:</B> <A NAME="tex2html468"
+  HREF="node15.html">Running McErlang</A>
+<B> Previous:</B> <A NAME="tex2html464"
+  HREF="node30.html">Debugger Commands</A>
+ &nbsp; <B>  <A NAME="tex2html470"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00049000000000000000"></A>
+<A NAME="shell"></A>
+<BR>
+The Shell: Experimenting with McErlang
+</H2>
+McErlang implements a rudimentary shell which can be used
+to experiment with running code under McErlang.
+The shell is invoked using the function @mce:shell()@.
+
+<P>
+The shell supports an online mapping of Erlang API functions
+to McErlang ones. For example, the expression @self()!hello@
+will be mapped to @mcerlang:send(mcerlang:self(),hello)@.
+Moreover it is possible to execute a @receive@ expression.
+
+<P>
+As an example, the following shell interaction works as expected,
+although internally the McErlang API is used instead of the
+Erlang one:
+<BR>
+<IMG
+ WIDTH="474" HEIGHT="223" ALIGN="BOTTOM" BORDER="0"
+ SRC="img102.png"
+ ALT="\begin{lstlisting}
+1&gt; mce:shell().
+...
+McErlang::node0@sadrach&gt; self().
+{pid,nod...
+...ve X -&gt; {msg,X} end.
+{msg,hello}
+\par
+McErlang::node0@sadrach&gt;
+\end{lstlisting}">
+<BR>
+
+<P>
+Arbitrary functions can be executed in the shell, logically
+executing of a particular node. To switch to executing on a different
+node the function @connect_to_node(NodeName::atom())@ can
+be executed.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><UL>
+<LI><A NAME="tex2html473"
+  HREF="node32.html">Limitations</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+<BR><HR>
+<ADDRESS>
+
+2010-07-05
+</ADDRESS>
+</BODY>
+</HTML>

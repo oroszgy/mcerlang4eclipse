@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>McErlang User Manual
+1</TITLE>
+<META NAME="description" CONTENT="McErlang User Manual
+1">
+<META NAME="keywords" CONTENT="userManual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="userManual.css">
+
+<LINK REL="next" HREF="node1.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html11"
+  HREF="node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev_g.png"> 
+<A NAME="tex2html9"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html12"
+  HREF="node1.html">Contents</A>
+ &nbsp; <B>  <A NAME="tex2html10"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<P>
+
+<P>
+
+<P>
+<H1 ALIGN="CENTER">McErlang User Manual
+<A NAME="tex2html1"
+  HREF="footnode.html#foot34"><SUP><SPAN CLASS="arabic">1</SPAN></SUP></A></H1>
+<DIV CLASS="author_info">
+
+<P ALIGN="CENTER"><STRONG>Lars-&#197;ke Fredlund and 
+Clara Benac Earle</STRONG></P>
+<P ALIGN="CENTER"><I>Babel group, LSIIS, Facultad de Inform&#225;tica,</I></P>
+<P ALIGN="LEFT"><SMALL>Universidad Polit&#233;cnica de Madrid, Spain</SMALL></P>
+</DIV>
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html13"
+  HREF="node1.html">Contents</A>
+<LI><A NAME="tex2html14"
+  HREF="node2.html">Introduction</A>
+<UL>
+<LI><A NAME="tex2html15"
+  HREF="node3.html">Getting to know Erlang</A>
+<LI><A NAME="tex2html16"
+  HREF="node4.html">The McErlang Workflow</A>
+<LI><A NAME="tex2html17"
+  HREF="node5.html">A Smallish Example</A>
+<LI><A NAME="tex2html18"
+  HREF="node6.html">Limitations</A>
+<LI><A NAME="tex2html19"
+  HREF="node7.html">Extensions</A>
+<UL>
+<LI><A NAME="tex2html20"
+  HREF="node8.html">Node and Global Dictionaries</A>
+<LI><A NAME="tex2html21"
+  HREF="node9.html">Node Functions</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html22"
+  HREF="node10.html">Compiling Erlang code using McErlang</A>
+<UL>
+<LI><A NAME="tex2html23"
+  HREF="node11.html">Translation Phase</A>
+<LI><A NAME="tex2html24"
+  HREF="node12.html">Transformation Issues</A>
+<LI><A NAME="tex2html25"
+  HREF="node13.html">Compilation</A>
+<LI><A NAME="tex2html26"
+  HREF="node14.html">Customized Erlang/OTP Modules</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html27"
+  HREF="node15.html">Running McErlang</A>
+<UL>
+<LI><A NAME="tex2html28"
+  HREF="node16.html">Model Checking Configuration</A>
+<LI><A NAME="tex2html29"
+  HREF="node17.html">State Space Traversal Algorithms</A>
+<UL>
+<LI><A NAME="tex2html30"
+  HREF="node18.html">Algorithm Termination</A>
+<LI><A NAME="tex2html31"
+  HREF="node19.html">Listing of Available Algorithms</A>
+</UL>
+<LI><A NAME="tex2html32"
+  HREF="node20.html">Monitors</A>
+<UL>
+<LI><A NAME="tex2html33"
+  HREF="node21.html">Observational Power of Monitors</A>
+<UL>
+<LI><A NAME="tex2html34"
+  HREF="node22.html">Using probe states to write properties</A>
+</UL>
+<LI><A NAME="tex2html35"
+  HREF="node23.html">Some Available Monitors</A>
+</UL>
+<LI><A NAME="tex2html36"
+  HREF="node24.html">Abstractions</A>
+<LI><A NAME="tex2html37"
+  HREF="node25.html">Tables</A>
+<LI><A NAME="tex2html38"
+  HREF="node26.html">Stacks</A>
+<LI><A NAME="tex2html39"
+  HREF="node27.html">Schedulers</A>
+<LI><A NAME="tex2html40"
+  HREF="node28.html">The Debugger: Examining Counterexamples</A>
+<UL>
+<LI><A NAME="tex2html41"
+  HREF="node29.html">Starting the Debugger</A>
+<LI><A NAME="tex2html42"
+  HREF="node30.html">Debugger Commands</A>
+</UL>
+<LI><A NAME="tex2html43"
+  HREF="node31.html">The Shell: Experimenting with McErlang</A>
+<UL>
+<LI><A NAME="tex2html44"
+  HREF="node32.html">Limitations</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html45"
+  HREF="node33.html">Ltl2Buchi: Translation LTL Properties to B&#252;chi Automatons</A>
+<UL>
+<LI><A NAME="tex2html46"
+  HREF="node34.html">Writing LTL Properties</A>
+<LI><A NAME="tex2html47"
+  HREF="node35.html">Interfacing with B&#252;chi Automatons</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html48"
+  HREF="node36.html">A McErlang Application</A>
+<LI><A NAME="tex2html49"
+  HREF="node37.html">A QuickCheck-McErlang Interface: Experimental Feature</A>
+<LI><A NAME="tex2html50"
+  HREF="node38.html">Module Information</A>
+<LI><A NAME="tex2html51"
+  HREF="node39.html">Bibliography</A>
+<LI><A NAME="tex2html52"
+  HREF="node40.html">About this document ...</A>
+</UL>
+<!--End of Table of Child-Links-->
+<BR><HR>
+<ADDRESS>
+
+2010-07-05
+</ADDRESS>
+</BODY>
+</HTML>

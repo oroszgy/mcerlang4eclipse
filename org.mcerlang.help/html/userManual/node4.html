@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The McErlang Workflow</TITLE>
+<META NAME="description" CONTENT="The McErlang Workflow">
+<META NAME="keywords" CONTENT="userManual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="userManual.css">
+
+<LINK REL="next" HREF="node5.html">
+<LINK REL="previous" HREF="node3.html">
+<LINK REL="up" HREF="node2.html">
+<LINK REL="next" HREF="node5.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html132"
+  HREF="node5.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html128"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html122"
+  HREF="node3.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html130"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html133"
+  HREF="node5.html">A Smallish Example</A>
+<B> Up:</B> <A NAME="tex2html129"
+  HREF="node2.html">Introduction</A>
+<B> Previous:</B> <A NAME="tex2html123"
+  HREF="node3.html">Getting to know Erlang</A>
+ &nbsp; <B>  <A NAME="tex2html131"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00022000000000000000">
+The McErlang Workflow</A>
+</H2>
+
+<P>
+Figure&nbsp;<A HREF="#fig:workflow">1</A> illustrates the differences between
+a normal Erlang workflow (left) and one using the McErlang model 
+checker (right). The model is the Erlang program to be analyzed, which undergoes
+a source-to-source translation to prepare the program for running under
+the model checker. Then the normal Erlang compiler translates
+the program to either Beam byte code (an Erlang byte code language)
+or directly to native machine code. Finally the program
+is run under the McErlang run time system, under the control
+of a verification algorithm, by the normal Erlang bytecode
+interpreter. The pure computation part of the code, i.e, code with no 
+side effects, including garbage collection,
+is executed by the normal Erlang run time system. However, the side effect part
+is executed under the McErlang run time system which is a complete
+rewrite in Erlang of the basic process creating, scheduling,
+communication and fault-handling machinery of Erlang (comprising a 
+significant portion of the code of the model checker). 
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:workflow"></A><A NAME="59"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 1:</STRONG>
+Usage of McErlang</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV>[width=10cm]mcerlangorg</TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+Naturally the new run time system
+offers easy checkpointing (capturing the state of all nodes and processes,
+of the message queues of all processes, and all messages in
+transit between processes), of the whole program state as a feature
+(impossible to achieve in the normal Erlang run time system due to
+the physical distribution of processes).
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html132"
+  HREF="node5.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html128"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html122"
+  HREF="node3.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html130"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html133"
+  HREF="node5.html">A Smallish Example</A>
+<B> Up:</B> <A NAME="tex2html129"
+  HREF="node2.html">Introduction</A>
+<B> Previous:</B> <A NAME="tex2html123"
+  HREF="node3.html">Getting to know Erlang</A>
+ &nbsp; <B>  <A NAME="tex2html131"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2010-07-05
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>A Smallish Example</TITLE>
+<META NAME="description" CONTENT="A Smallish Example">
+<META NAME="keywords" CONTENT="userManual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="userManual.css">
+
+<LINK REL="next" HREF="node6.html">
+<LINK REL="previous" HREF="node4.html">
+<LINK REL="up" HREF="node2.html">
+<LINK REL="next" HREF="node6.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html144"
+  HREF="node6.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html140"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html134"
+  HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html142"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html145"
+  HREF="node6.html">Limitations</A>
+<B> Up:</B> <A NAME="tex2html141"
+  HREF="node2.html">Introduction</A>
+<B> Previous:</B> <A NAME="tex2html135"
+  HREF="node4.html">The McErlang Workflow</A>
+ &nbsp; <B>  <A NAME="tex2html143"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00023000000000000000"></A>
+<A NAME="sect_example"></A>
+<BR>
+A Smallish Example
+</H2>
+
+<P>
+We illustrate the use of the tool with the smallish example below.
+Two processes are spawned, the first starting an ``echo'' server
+that echoes received messages, and the other process invokes the echo
+server:
+<BR>
+<IMG
+ WIDTH="406" HEIGHT="373" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+-module(example).
+-export([start/0]).
+\par
+...
+... receive
+{msg,Client,Msg} -&gt;
+Client!{echo,Msg},
+echo()
+end.
+\end{lstlisting}">
+<BR>
+Let's run the example under the standard Erlang runtime system:
+<BR>
+<IMG
+ WIDTH="541" HEIGHT="144" ALIGN="BOTTOM" BORDER="0"
+ SRC="img2.png"
+ ALT="\begin{lstlisting}
+&gt; erlc example.erl
+&gt; erl
+Erlang (BEAM) emulator version 5.6.5...
+...
+Eshell V5.6.5 (abort with ^G)
+1&gt; example:start().
+&lt;0.34.0&gt;
+2&gt;
+\end{lstlisting}">
+<BR>
+That worked fine. Let's try it under McErlang instead.
+To do so we first have to recompile the module
+using the McErlang compiler:
+<BR>
+<IMG
+ WIDTH="482" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3.png"
+ ALT="\begin{lstlisting}
+&gt; mcerl_compiler -sources example.erl -output_dir .
+\end{lstlisting}">
+<BR>
+Then we run it:
+<BR>
+<IMG
+ WIDTH="676" HEIGHT="373" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4.png"
+ ALT="\begin{lstlisting}
+&gt; mcerl
+Erlang (BEAM) emulator version 5.6.5 [source] [smp:2]...
+...unterexample type ''mce_erl_debugger:start(mce:result()). ''
+ok
+\end{lstlisting}">
+<BR>
+Ah, so there was an error. Let's find out more:
+<BR>
+<IMG
+ WIDTH="673" HEIGHT="338" ALIGN="BOTTOM" BORDER="0"
+ SRC="img5.png"
+ ALT="\begin{lstlisting}
+2&gt; mce_erl_debugger:start(mce:result()).
+Starting debugger wi...
+... terminated
+process &lt;node0@exodo3,1&gt; died due to reason normal
+\end{lstlisting}">
+<BR>
+Apparently in one execution trace the second process spawned (the one calling
+the echo server) was run before the echo server itself, and of course
+upon trying to send a message @echo!msg,self(),'hello world'@
+the @echo@ name was not registered.
+
+<P>
+<BR><HR>
+<ADDRESS>
+
+2010-07-05
+</ADDRESS>
+</BODY>
+</HTML>

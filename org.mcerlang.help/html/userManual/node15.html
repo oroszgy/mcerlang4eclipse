@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Running McErlang</TITLE>
+<META NAME="description" CONTENT="Running McErlang">
+<META NAME="keywords" CONTENT="userManual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="userManual.css">
+
+<LINK REL="next" HREF="node33.html">
+<LINK REL="previous" HREF="node10.html">
+<LINK REL="up" HREF="userManual.html">
+<LINK REL="next" HREF="node16.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html264"
+  HREF="node16.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html260"
+  HREF="userManual.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html254"
+  HREF="node14.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html262"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html265"
+  HREF="node16.html">Model Checking Configuration</A>
+<B> Up:</B> <A NAME="tex2html261"
+  HREF="userManual.html">McErlang User Manual <SUP>1</SUP></A>
+<B> Previous:</B> <A NAME="tex2html255"
+  HREF="node14.html">Customized Erlang/OTP Modules</A>
+ &nbsp; <B>  <A NAME="tex2html263"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00040000000000000000"></A> 
+<A NAME="running"></A>
+<BR>
+Running McErlang
+</H1>
+
+<P>
+To execute a program under McErlang, one of the functions
+in the mce module should be called. A convenient way
+to start Erlang with all the modules comprising the McErlang tool
+available is to run the script <TT>mcerl</TT>.
+
+<P>
+Functions for starting McErlang:
+
+<UL>
+<LI>
+<BR>
+<IMG
+ WIDTH="215" HEIGHT="12" ALIGN="BOTTOM" BORDER="0"
+ SRC="img30.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+mce:start(Conf::conf())
+\end{lstlisting}">
+<BR>
+Starts McErlang using the configuration specified in Conf
+(see below for details).
+
+<P>
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="663" HEIGHT="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="img31.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+mce:apply(Module::atom,FunName::atom,Argumen...
+...ly(Module::atom,FunName::atom,Arguments::[term()],Conf::conf())
+\end{lstlisting}">
+<BR>
+Starts McErlang using the configuration specified in Conf -
+if specified - to check the specified function.
+If a configuration is not provided, then a default one is used
+(using a safety checking algorithm, not checking any monitor, ...).
+
+<P>
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="100" HEIGHT="12" ALIGN="BOTTOM" BORDER="0"
+ SRC="img32.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+mce:shell()
+\end{lstlisting}">
+<BR>
+Starts a rudimentary shell for experimenting (using a simulation algorithm) 
+with the McErlang tool. 
+</LI>
+</UL>
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html266"
+  HREF="node16.html">Model Checking Configuration</A>
+<LI><A NAME="tex2html267"
+  HREF="node17.html">State Space Traversal Algorithms</A>
+<UL>
+<LI><A NAME="tex2html268"
+  HREF="node18.html">Algorithm Termination</A>
+<LI><A NAME="tex2html269"
+  HREF="node19.html">Listing of Available Algorithms</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html270"
+  HREF="node20.html">Monitors</A>
+<UL>
+<LI><A NAME="tex2html271"
+  HREF="node21.html">Observational Power of Monitors</A>
+<UL>
+<LI><A NAME="tex2html272"
+  HREF="node22.html">Using probe states to write properties</A>
+</UL>
+<LI><A NAME="tex2html273"
+  HREF="node23.html">Some Available Monitors</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html274"
+  HREF="node24.html">Abstractions</A>
+<LI><A NAME="tex2html275"
+  HREF="node25.html">Tables</A>
+<LI><A NAME="tex2html276"
+  HREF="node26.html">Stacks</A>
+<LI><A NAME="tex2html277"
+  HREF="node27.html">Schedulers</A>
+<LI><A NAME="tex2html278"
+  HREF="node28.html">The Debugger: Examining Counterexamples</A>
+<UL>
+<LI><A NAME="tex2html279"
+  HREF="node29.html">Starting the Debugger</A>
+<LI><A NAME="tex2html280"
+  HREF="node30.html">Debugger Commands</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html281"
+  HREF="node31.html">The Shell: Experimenting with McErlang</A>
+<UL>
+<LI><A NAME="tex2html282"
+  HREF="node32.html">Limitations</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+<BR><HR>
+<ADDRESS>
+
+2010-07-05
+</ADDRESS>
+</BODY>
+</HTML>

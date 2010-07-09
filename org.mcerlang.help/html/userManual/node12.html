@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Transformation Issues</TITLE>
+<META NAME="description" CONTENT="Transformation Issues">
+<META NAME="keywords" CONTENT="userManual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="userManual.css">
+
+<LINK REL="next" HREF="node13.html">
+<LINK REL="previous" HREF="node11.html">
+<LINK REL="up" HREF="node10.html">
+<LINK REL="next" HREF="node13.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html230"
+  HREF="node13.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html226"
+  HREF="node10.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html220"
+  HREF="node11.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html228"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html231"
+  HREF="node13.html">Compilation</A>
+<B> Up:</B> <A NAME="tex2html227"
+  HREF="node10.html">Compiling Erlang code using</A>
+<B> Previous:</B> <A NAME="tex2html221"
+  HREF="node11.html">Translation Phase</A>
+ &nbsp; <B>  <A NAME="tex2html229"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00032000000000000000"></A>
+<A NAME="issues"></A>
+<BR>
+Transformation Issues
+</H2>
+
+<P>
+Unfortunately the transformation is not fool-proof,
+the fundamental problem is that the transformation must potentially
+modify all the source code of an Erlang system. 
+All the code locations (not in a tail position)
+from which a receive statement may eventually
+be called must be modified. As there is no Erlang source code for parts of 
+the distribution (because they are implemented in C) we have no choice
+but to replace those parts with equivalent parts in pure Erlang.
+
+<P>
+As an example, consider the translation of the following
+code fragment:
+<BR>
+<IMG
+ WIDTH="534" HEIGHT="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="img19.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+lists:foreach(fun (Element) -&gt;
+receive Command -&gt; {Element,Command} end
+end L).
+\end{lstlisting}">
+<BR>
+Apart from transforming the receive statement itself,
+the transformation must potentially also modify the anonymous function in which
+the receive statement resides. Here this is not necessary, as the
+receive statement occurs in a tail position.
+Moreover, the transformation must also modify the lists:foreach
+function. Obviously we can use the source code of the lists module;
+however there is a problem. Not all functions provided by the
+lists module are actually implemented in Erlang. Thus we have
+no choice but to provide a slightly modified version of the module
+(mce_erl_lists)
+with McErlang. By default the modified library module is used, however a user
+can choose to use the standard module instead (by overriding the mapping
+from lists to mce_erl_lists in ``funinfo.txt'').
+This may be safe, if no function passed to any function in lists
+can ever execute a return statement (the static analyser that the
+transformation phase implements is generally not intelligent enough
+to discover such possible optimisations).
+
+<P>
+As we have not analysed all standard Erlang modules for such problems,
+nor have we provided alternative implementations for all cases
+needed, there is a risk that a program may exhibit different behaviour
+running under McErlang than under the normal Erlang runtime system.
+Concretely, functions may have arguments which contain unexpected
+special return values, or special return values may be silently ignored.
+
+<P>
+Another concern is memory efficiency. In a model checker it is generally
+important to save memory space. Thus some data structures, although
+highly efficient in terms of execution speed, 
+can waste too much memory space (examples may include the dict
+module).
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html230"
+  HREF="node13.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html226"
+  HREF="node10.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html220"
+  HREF="node11.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html228"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html231"
+  HREF="node13.html">Compilation</A>
+<B> Up:</B> <A NAME="tex2html227"
+  HREF="node10.html">Compiling Erlang code using</A>
+<B> Previous:</B> <A NAME="tex2html221"
+  HREF="node11.html">Translation Phase</A>
+ &nbsp; <B>  <A NAME="tex2html229"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2010-07-05
+</ADDRESS>
+</BODY>
+</HTML>

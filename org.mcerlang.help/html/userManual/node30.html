@@ -1,0 +1,232 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Debugger Commands</TITLE>
+<META NAME="description" CONTENT="Debugger Commands">
+<META NAME="keywords" CONTENT="userManual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="userManual.css">
+
+<LINK REL="previous" HREF="node29.html">
+<LINK REL="up" HREF="node28.html">
+<LINK REL="next" HREF="node31.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html461"
+  HREF="node31.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html457"
+  HREF="node28.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html453"
+  HREF="node29.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html459"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html462"
+  HREF="node31.html">The Shell: Experimenting with</A>
+<B> Up:</B> <A NAME="tex2html458"
+  HREF="node28.html">The Debugger: Examining Counterexamples</A>
+<B> Previous:</B> <A NAME="tex2html454"
+  HREF="node29.html">Starting the Debugger</A>
+ &nbsp; <B>  <A NAME="tex2html460"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION00048200000000000000">
+Debugger Commands</A>
+</H3>
+These are commands available in the
+command loop of the model checker,
+in addition to the normal Erlang
+functions.
+
+<P>
+
+<UL>
+<LI>
+<BR>
+<IMG
+ WIDTH="147" HEIGHT="31" ALIGN="BOTTOM" BORDER="0"
+ SRC="img91.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+int()
+choose(N::int())
+\end{lstlisting}">
+<BR>
+Chooses the corresponding
+transition to compute the next state.
+
+<P>
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="128" HEIGHT="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="img92.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+step()
+step(N::int())
+\end{lstlisting}">
+<BR>
+Executes N computation steps.
+
+<P>
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="42" HEIGHT="12" ALIGN="BOTTOM" BORDER="0"
+ SRC="img93.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+run()
+\end{lstlisting}">
+<BR>
+Runs the program until it halts.
+
+<P>
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="167" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img94.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+printTransitions()
+\end{lstlisting}">
+<BR>
+Shows all transitions from the current state.
+
+<P>
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="253" HEIGHT="108" ALIGN="BOTTOM" BORDER="0"
+ SRC="img95.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+printState()
+printEther()
+printNodeNames()
+p...
+...essNames()
+printNode(NodeName::atom())
+printProcess(Pid::pid())
+\end{lstlisting}">
+<BR>
+Prints different components of
+the current state.
+
+<P>
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="137" HEIGHT="12" ALIGN="BOTTOM" BORDER="0"
+ SRC="img96.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+showExecution()
+\end{lstlisting}">
+<BR>
+Show the complete run starting from initial state to the final state.
+
+<P>
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="138" HEIGHT="31" ALIGN="BOTTOM" BORDER="0"
+ SRC="img97.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+where()
+where(N::int())
+\end{lstlisting}">
+<BR>
+Shows the execution context (the last N stack frames).
+
+<P>
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="129" HEIGHT="31" ALIGN="BOTTOM" BORDER="0"
+ SRC="img98.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+back()
+back(N::int())
+\end{lstlisting}">
+<BR>
+Moves the ``stack pointer'' towards the beginning of the program execution.
+
+<P>
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="156" HEIGHT="31" ALIGN="BOTTOM" BORDER="0"
+ SRC="img99.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+forward()
+forward(N::int())
+\end{lstlisting}">
+<BR>
+Moves the ``stack pointer'' towards the end of the program execution.
+
+<P>
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="128" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img100.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+goto(N::int())
+\end{lstlisting}">
+<BR>
+Moves the stack pointer to stack frame N.
+
+<P>
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="51" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img101.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+quit()
+\end{lstlisting}">
+<BR>
+Leaves the debugger.
+</LI>
+</UL>
+
+<P>
+<BR><HR>
+<ADDRESS>
+
+2010-07-05
+</ADDRESS>
+</BODY>
+</HTML>

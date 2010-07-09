@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Getting to know Erlang</TITLE>
+<META NAME="description" CONTENT="Getting to know Erlang">
+<META NAME="keywords" CONTENT="userManual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="userManual.css">
+
+<LINK REL="next" HREF="node4.html">
+<LINK REL="previous" HREF="node2.html">
+<LINK REL="up" HREF="node2.html">
+<LINK REL="next" HREF="node4.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html120"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html116"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html110"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html118"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html121"
+  HREF="node4.html">The McErlang Workflow</A>
+<B> Up:</B> <A NAME="tex2html117"
+  HREF="node2.html">Introduction</A>
+<B> Previous:</B> <A NAME="tex2html111"
+  HREF="node2.html">Introduction</A>
+ &nbsp; <B>  <A NAME="tex2html119"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00021000000000000000">
+Getting to know Erlang</A>
+</H2>
+
+<P>
+Erlang is a functional programming language developed at Ericsson for the
+implementation of concurrent, distributed, fault-tolerant 
+systems. A system is typically composed of a number of lightweight
+processes, which may be distributed over physically separated
+nodes, communicating through asynchronous message passing. 
+On top of the basic language, the OTP library implements
+commonly used components such as
+client-server architectures, finite state machines, etc.
+Providing a model checker for Erlang is especially rewarding
+since the language is by now being seen as a very capable platform for
+developing industrial strength distributed applications with excellent
+fault tolerance characteristics.
+In contrast to most other Erlang verification
+attempts, we provide support for virtually the full, rather complex,
+programming language. 
+The model checker has full Erlang data type support, support
+for general process communication, node semantics (inter-process
+communication behave subtly different from intra-process communication), fault
+detection and fault tolerance, and crucially can verify
+programs written using the high-level
+OTP Erlang component library (used by most Erlang programs).
+
+<P>
+For non-Erlang programmers the approach has merits too.
+Erlang is a good <EM>general specification</EM> language, due to
+its root in functional programming (with higher-order functions
+for writing concise specifications, with software components
+for lifting the specification abstraction level, 
+can treat program as data - yielding
+a convenient meta level, ...).
+
+<P>
+Moreover Erlang is a good platform for <EM>specifying 
+distributed algorithms</EM> since language
+features matches common assumptions in distributed algorithms:
+(a) <EM>isolated</EM> processes that communicate using message-passing,
+(b) <EM>fault-detection</EM> is achieved using unreliable failure detectors,
+(c) process <EM>fairness</EM> built into the language,
+and (d) <EM>locality</EM> is important: communication guarantees 
+are stronger for intra-node communication than inter-node communication.
+
+<P>
+The user manual assumes a basic knowledge of Erlang. Information
+on the programming language and its application programming interface 
+can be found on the site www.erlang.org
+(where Erlang can be downloaded as well) and in a number of
+concerning Erlang programming which are available or will appear in
+print shortly:
+
+<P>
+
+<UL>
+<LI><EM>Concurrent Programming in Erlang (2nd edition)</EM>
+by Joe Armstrong, Robert Virding, Claes Wikstr&#246;m
+and Mike Williams.
+Prentice-Hall, 1996.
+</LI>
+<LI><EM>Programming Erlang: Software for a Concurrent World </EM>
+by Joe Armstrong. Pragmatic Bookshelf, 2007.
+</LI>
+<LI><EM>Erlang Programming</EM>
+by Francesco Cesarini and Simon Thompson.
+O'Reilly Media, Inc., 2009.
+</LI>
+</UL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html120"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html116"
+  HREF="node2.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html110"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html118"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html121"
+  HREF="node4.html">The McErlang Workflow</A>
+<B> Up:</B> <A NAME="tex2html117"
+  HREF="node2.html">Introduction</A>
+<B> Previous:</B> <A NAME="tex2html111"
+  HREF="node2.html">Introduction</A>
+ &nbsp; <B>  <A NAME="tex2html119"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2010-07-05
+</ADDRESS>
+</BODY>
+</HTML>

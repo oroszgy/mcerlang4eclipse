@@ -1,0 +1,321 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Using probe actions to write properties</TITLE>
+<META NAME="description" CONTENT="Using probe actions to write properties">
+<META NAME="keywords" CONTENT="tutorial">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="tutorial.css">
+
+<LINK REL="next" HREF="node12.html">
+<LINK REL="previous" HREF="node10.html">
+<LINK REL="up" HREF="node10.html">
+<LINK REL="next" HREF="node12.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html135"
+  HREF="node12.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html133"
+  HREF="node10.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html127"
+  HREF="node10.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html136"
+  HREF="node12.html">Using probe states to</A>
+<B> Up:</B> <A NAME="tex2html134"
+  HREF="node10.html">Model checking using B&#252;chi</A>
+<B> Previous:</B> <A NAME="tex2html128"
+  HREF="node10.html">Model checking using B&#252;chi</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00071000000000000000">
+Using probe actions to write properties</A>
+</H2>
+
+<P>
+One possible and more precise description of
+the aforesaid property is the following: 
+
+<P>
+<BLOCKQUOTE>
+<EM>if user1 does not send a
+message m to user2 until user2 is logged on,
+then if user1 does send a
+message m to user2 then eventually user2 receives the message m.
+
+</EM></BLOCKQUOTE>
+
+<P>
+The formalization in LTL of the above formula can be found in the
+``message_received1()'' function in the <B>run.erl</B> file. 
+
+<P>
+<PRE>
+"not P until Q =&gt; (eventually P =&gt; eventually R)"
+</PRE>
+
+<P>
+The predicates P, Q and R have the following meaning in the concrete
+scenario where a user clara that first sends a logon message to the
+messenger server, then sends the message ``hi'' to the user fred and
+finally sends a logoff message, and a user fred that sends a logon
+message and a logoff message:
+
+<UL>
+<LI><SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="$\mathit{P}$"></SPAN>: clara sends message ``hi'' to fred
+</LI>
+<LI><SPAN CLASS="MATH"><IMG
+ WIDTH="17" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\mathit{Q}$"></SPAN>: fred is logged on
+</LI>
+<LI><SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3.png"
+ ALT="$\mathit{R}$"></SPAN>: fred receives the message ``hi'' from clara
+</LI>
+</UL>
+
+<P>
+Linear Temporal Logic is defined over program runs:
+<!-- MATH
+ $\mathit{P}\;\mathit{until}\;\mathit{Q}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="72" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4.png"
+ ALT="$\mathit{P}\;\mathit{until}\;\mathit{Q}$"></SPAN> holds for a program run
+if at every state of the run 
+the <SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="$\mathit{P}$"></SPAN> predicate holds, until a state in the program run
+is encountered where the <SPAN CLASS="MATH"><IMG
+ WIDTH="17" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\mathit{Q}$"></SPAN> predicate holds (and <SPAN CLASS="MATH"><IMG
+ WIDTH="17" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\mathit{Q}$"></SPAN>
+must hold for some state on the run).
+<!-- MATH
+ $\mathit{eventually}\;\mathit{R}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="91" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img5.png"
+ ALT="$\mathit{eventually}\;\mathit{R}$"></SPAN> holds for a program run if the
+predicate <SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3.png"
+ ALT="$\mathit{R}$"></SPAN> holds at some program state in the run.
+Normal logical implication is denoted by the ``<SPAN CLASS="MATH"><IMG
+ WIDTH="20" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img6.png"
+ ALT="$\Rightarrow$"></SPAN>'' symbol.
+
+<P>
+For simplicity and modularity the property and the predicates present
+in the property are considered separately. To write the predicates or
+basic facts in the formula (user1 sends a message m to user2, etc.)
+McErlang allows access to the program states and the sequence of
+actions labelling transitions between states.  These predicates can be
+written directly in Erlang, using all the expressiveness of the
+language. For example, a predicate stating that a user is logged on
+can be implemented as a function ``logon'' that returns true when an
+action corresponding to the user being logged on is found labelling a
+transition.  The process of searching for the desired action is
+simplified if we annotate the program with what we call ``probe
+actions'', which serve to make the internal state of a program visible
+to the model checker in a simple fashion.
+
+<P>
+In the messenger example we have annotated the program code with probe
+actions that are referred to in the predicates. For example, the
+following probe action has been added in messenger.erl to the client
+function for expressing that a user is logged on:
+emph=mce_erl,probe,probe_state,has_probe_state,del_probe_state,emphstyle=
+<BR>
+<IMG
+ WIDTH="433" HEIGHT="90" ALIGN="BOTTOM" BORDER="0"
+ SRC="img7.png"
+ ALT="\begin{lstlisting}
+client(Server_Node, Name) -&gt;
+{messenger,Server_Node}!{self(...
+...it_result(),
+mce_erl:probe(logon,Name),
+client(Server_Node).
+\end{lstlisting}">
+<BR>
+
+<P>
+From the example we can see that a probe action,
+as created using the @mce_erl:probe@ function, has two arguments, 
+corresponding to a label naming the particular probe, 
+and an arbitrary Erlang term as probe argument.
+
+<P>
+The code implementing predicates (<B>basicPredicates.erl</B>) is in the
+McErlang/examples/Simple_messenger directory. For example, the ``logon'' predicate is
+implemented as the ``logon'' function which provided a user name as
+argument, defines an anonymous function that returns true if its
+second argument is a sequence of actions containing a logon probe
+action corresponding to a logon by the named user:
+<BR>
+<IMG
+ WIDTH="348" HEIGHT="278" ALIGN="BOTTOM" BORDER="0"
+ SRC="img8.png"
+ ALT="\begin{lstlisting}
+logon(Name) -&gt;
+fun (_,Actions,_) -&gt;
+lists:any
+(fun (Action...
+...erm(Action),
+true
+catch _:_ -&gt; false end
+end, Actions)
+end.
+\end{lstlisting}">
+<BR>
+
+<P>
+Similarly, probe actions and predicates have been written for the other
+predicates appearing in property (1).
+
+<P>
+To model check property (1) on a concrete scenario we use the
+function message_received in run.erl. 
+
+<P>
+<PRE>
+Eshell V5.6.5  (abort with ^G)
+1&gt; run:message_received1().
+Starting McErlang model checker environment version 1.0 ...
+
+Starting mce_alg_buechi(void) algorithm on program
+scenario:start([[{logon,clara},{message,fred,"hi"},logoff],[{logon,fred},logoff]])
+with monitor messenger_mon({void,[{'P',#Fun&lt;basicPredicates.5.8045620&gt;},
+                                  {'Q',#Fun&lt;basicPredicates.1.30432014&gt;},
+                                  {'R',#Fun&lt;basicPredicates.6.70178892&gt;}]})
+
+...
+
+Access result using mce:result()
+To see the counterexample type "mce_erl_debugger:start(mce:result()). "
+ok
+2&gt;
+</PRE>
+
+<P>
+If we look at the counterexample we should be able to see that the
+property did not hold because fred could logoff before receiving the
+message.
+
+<P>
+One option to address the problem found is to generate only
+test cases where fred never logs out. However, we prefer to
+instead rewrite the property to
+handle the situation when fred logs out. 
+
+<P>
+Thus we modify the property (1) as follows:
+<BLOCKQUOTE>
+<EM>if user1 does not send a message m to user2 until user2 is logged on,
+then if user1 does send a message m to user2 then eventually user2
+receives the message m from user1, or user2 is logged off.
+
+</EM></BLOCKQUOTE>
+The resulting LTL formula is the following:
+
+<P>
+<PRE>
+"not P until Q =&gt; (eventually P =&gt; eventually (R or S))"
+</PRE>
+
+<P>
+where S represents the predicate ``fred is logged off''. This property
+is used in the message_received2 function in the <B>run.erl</B> file with
+the same scenario.
+
+<P>
+<PRE>
+Eshell V5.6.5  (abort with ^G)
+1&gt; run:message_received2().
+Starting McErlang model checker environment version 1.0 ...
+
+Starting mce_alg_buechi(void) algorithm on program
+scenario:start([[{logon,clara},{message,fred,"hi"},logoff],[{logon,fred},logoff]])
+with monitor messenger_mon({void,[{'P',#Fun&lt;basicPredicates.5.8045620&gt;},
+                                  {'Q',#Fun&lt;basicPredicates.1.30432014&gt;},
+                                  {'R',#Fun&lt;basicPredicates.6.70178892&gt;},
+                                  {'S',#Fun&lt;basicPredicates.2.72475960&gt;}]})
+
+...
+
+*** Run ending. 1969 states explored, stored states 2058.
+
+Execution terminated normally
+Access result using mce:result()
+ok
+2&gt;
+</PRE>
+
+<P>
+The property (2) has been checked against several scenarios, returning
+always a positive result.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html135"
+  HREF="node12.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html133"
+  HREF="node10.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html127"
+  HREF="node10.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html136"
+  HREF="node12.html">Using probe states to</A>
+<B> Up:</B> <A NAME="tex2html134"
+  HREF="node10.html">Model checking using B&#252;chi</A>
+<B> Previous:</B> <A NAME="tex2html128"
+  HREF="node10.html">Model checking using B&#252;chi</A></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Orosz György
+2010-06-02
+</ADDRESS>
+</BODY>
+</HTML>

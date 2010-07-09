@@ -1,0 +1,287 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Compilation</TITLE>
+<META NAME="description" CONTENT="Compilation">
+<META NAME="keywords" CONTENT="userManual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="userManual.css">
+
+<LINK REL="next" HREF="node14.html">
+<LINK REL="previous" HREF="node12.html">
+<LINK REL="up" HREF="node10.html">
+<LINK REL="next" HREF="node14.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html242"
+  HREF="node14.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html238"
+  HREF="node10.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html232"
+  HREF="node12.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html240"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html243"
+  HREF="node14.html">Customized Erlang/OTP Modules</A>
+<B> Up:</B> <A NAME="tex2html239"
+  HREF="node10.html">Compiling Erlang code using</A>
+<B> Previous:</B> <A NAME="tex2html233"
+  HREF="node12.html">Transformation Issues</A>
+ &nbsp; <B>  <A NAME="tex2html241"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00033000000000000000">
+Compilation</A>
+</H2>
+
+<P>
+To prepare a set of Erlang source code files for use in McErlang
+(i.e., to map function calls and translate receive statements) and
+compile the resulting modules into object code the
+<TT>mcerl_compile</TT> script is used<A NAME="tex2html3"
+  HREF="footnode.html#foot662"><SUP><SPAN CLASS="arabic">2</SPAN></SUP></A>.
+If a particular module should not be subjected to McErlang 
+code transformations one can add the compiler directive 
+<BR>
+<IMG
+ WIDTH="167" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img20.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+-language(erlang).
+\end{lstlisting}">
+<BR>
+anywhere in the source code of the module.
+The Macro McErlang is defined if a file is compiled
+using the McErlang compiler.
+A trivial example:
+<BR>
+<IMG
+ WIDTH="511" HEIGHT="86" ALIGN="BOTTOM" BORDER="0"
+ SRC="img21.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+-ifdef(McErlang).
+-define(Output(),io:format...
+....
+-define(Output(),io:format(''No McErlang...~n'',[])).
+-endif.
+\end{lstlisting}">
+<BR>
+Note that the @McErlang@ macro will be defined if
+a file is compiled using McErlang, even if no transformations
+are done because the file contains a @-language(erlang).@
+directive.
+
+<P>
+The <TT>mcerl_compile</TT> script accepts the following parameters:
+
+<UL>
+<LI>
+<BR>
+<IMG
+ WIDTH="386" HEIGHT="51" ALIGN="BOTTOM" BORDER="0"
+ SRC="img22.png"
+ ALT="\begin{lstlisting}
+-sources file_or_directory1.erl
+...
+file_or_directoryN.erl [options]
+\end{lstlisting}">
+<BR>
+Specifies that the corresponding files should be compiled.
+Multiple @-sources@ 
+specification are allowed.
+If a directory is specified, all the Erlang files in that directory
+are selected for compilation.
+Options are of two kinds, and only apply to a single 
+@-source@
+specification: 
+
+<UL>
+<LI>@-recursive@ specifies that 
+all subdirectories
+of the source specifications should be searched, recursively,
+for Erlang source files as well.
+</LI>
+<LI>@-include_dirs directory1 ... directoryN@ 
+specifies that the specified directories are searched for include files
+by the preprocessor.
+</LI>
+</UL>
+
+<P>
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="294" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img23.png"
+ ALT="\begin{lstlisting}
+-libs directory1 ... directoryN
+\end{lstlisting}">
+<BR>
+Used to add library directories containing
+alternative implementations of standard
+Erlang modules. The order in which libraries are added is relevant
+for searching for files. That is, <TT>directory1</TT> is searched
+before directory <TT>directory2</TT>.
+The directory ``<TT>$MCERLANG/lib/erlang/src</TT>''
+is the default location to search for libraries.
+
+<P>
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="199" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img24.png"
+ ALT="\begin{lstlisting}
+-output_dir directory
+\end{lstlisting}">
+<BR>
+Specifies the directory where the resulting
+.beam files are written (and where for debugging purposes .core files
+containing HiPE Core Erlang code are written as well).
+The default is to store .beam files in a directory ``<TT>ebin</TT>'', which shall be created before compilation.
+
+<P>
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="256" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img25.png"
+ ALT="\begin{lstlisting}
+-funinfo configuration_file
+\end{lstlisting}">
+<BR>
+Used to provide an alternative transformation configuration file
+(see Section&nbsp;<A HREF="node11.html#translation">2.1</A> above).
+
+<P>
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="195" HEIGHT="12" ALIGN="BOTTOM" BORDER="0"
+ SRC="img26.png"
+ ALT="\begin{lstlisting}
+-verbose [true\vert false]
+\end{lstlisting}">
+<BR>
+Used to provide more verbose output. If no argument
+is specified <TT>true</TT> is assumed. The default is <TT>false</TT>.
+
+<P>
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="262" HEIGHT="12" ALIGN="BOTTOM" BORDER="0"
+ SRC="img27.png"
+ ALT="\begin{lstlisting}
+-unknown_is_rcv [true\vert false]
+\end{lstlisting}">
+<BR>
+Controls whether unknown functions are considered to have
+(receive) side effects, for the purpose of the static analysis
+(this is safe default option). The default is <TT>true</TT>.
+
+<P>
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="262" HEIGHT="12" ALIGN="BOTTOM" BORDER="0"
+ SRC="img28.png"
+ ALT="\begin{lstlisting}
+-sends_are_sefs [true\vert false]
+\end{lstlisting}">
+<BR>
+An experimental option that causes actions that cause communications
+to be considered side effects as well. Functions that are normally
+declared as potentially causing communications 
+include erlang:link/1,
+erlang:monitor/2, exit/2.
+The default is <TT>false</TT>.
+</LI>
+</UL>
+
+<P>
+An example make file which compiles all the Erlang source files in the 
+current directory, and stores the beam files in ``<TT>../ebin</TT>'',
+and which refers to include files in ``<TT>include</TT>'', is provided
+below:
+<BR>
+<IMG
+ WIDTH="482" HEIGHT="126" ALIGN="BOTTOM" BORDER="0"
+ SRC="img29.png"
+ ALT="\begin{lstlisting}{language=make}
+sources = $(wildcard *.erl)
+beams = $(patsubst...
+...ut_dir ../ebin \
+-sources \$(sources) \
+-include_dirs include
+\end{lstlisting}">
+<BR>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html242"
+  HREF="node14.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html238"
+  HREF="node10.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html232"
+  HREF="node12.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html240"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html243"
+  HREF="node14.html">Customized Erlang/OTP Modules</A>
+<B> Up:</B> <A NAME="tex2html239"
+  HREF="node10.html">Compiling Erlang code using</A>
+<B> Previous:</B> <A NAME="tex2html233"
+  HREF="node12.html">Transformation Issues</A>
+ &nbsp; <B>  <A NAME="tex2html241"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2010-07-05
+</ADDRESS>
+</BODY>
+</HTML>

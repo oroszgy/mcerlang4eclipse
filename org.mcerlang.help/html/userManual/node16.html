@@ -1,0 +1,403 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Model Checking Configuration</TITLE>
+<META NAME="description" CONTENT="Model Checking Configuration">
+<META NAME="keywords" CONTENT="userManual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="userManual.css">
+
+<LINK REL="next" HREF="node17.html">
+<LINK REL="previous" HREF="node15.html">
+<LINK REL="up" HREF="node15.html">
+<LINK REL="next" HREF="node17.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html293"
+  HREF="node17.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html289"
+  HREF="node15.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html283"
+  HREF="node15.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html291"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html294"
+  HREF="node17.html">State Space Traversal Algorithms</A>
+<B> Up:</B> <A NAME="tex2html290"
+  HREF="node15.html">Running McErlang</A>
+<B> Previous:</B> <A NAME="tex2html284"
+  HREF="node15.html">Running McErlang</A>
+ &nbsp; <B>  <A NAME="tex2html292"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00041000000000000000"></A>
+<A NAME="configuration"></A>
+<BR>
+Model Checking Configuration
+</H2>
+
+<P>
+The configuration of a model checking run is specified using
+a record structure (@mce_opts@).
+The best way of making the definition of @mce_opts@
+available to the Erlang shell is through
+the following command:
+<BR>
+<IMG
+ WIDTH="253" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img33.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+1&gt; rr(mce:find_mce_opts()).
+\end{lstlisting}">
+<BR>
+The relevant fields of are enumerated below:
+
+<UL>
+<LI>
+<BR>
+<IMG
+ WIDTH="589" HEIGHT="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="img34.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+program = {Module::atom(),FunName::atom(),Arguments::[term()]}
+\vert {Function::fun(), Arguments::[term()]}
+\end{lstlisting}">
+<BR>
+Specifies the initial function of the program.
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="417" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img35.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+algorithm = {Module::atom(),InitArg::term()}
+\end{lstlisting}">
+<BR>
+Specifies the type of algorithm used for
+traversing the program state space
+(see Section&nbsp;<A HREF="node19.html#algorithms">3.2.2</A> below for details on algorithms).
+The default algorithm is @mce_alg_safety@.
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="398" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img36.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+monitor = {Module::atom(),InitArg::term()}
+\end{lstlisting}">
+<BR>
+Specifies the correctness monitor used to check
+the behaviour of the program.
+Monitors are either <EM>safety monitors</EM> which should
+be checked in every program state,
+or <EM>b&#252;chi monitors</EM> which encode linear temporal logic properties (LTL).
+The <TT>Ltl2Buchi</TT> tool can be used to translate
+LTL properties into b&#252;chi monitors (see Section&nbsp;<A HREF="node33.html#Ltl2buchi">4</A> for details).
+Further details on monitors are given in Section&nbsp;<A HREF="node20.html#monitors">3.3</A>.
+The default monitor never reports an error.
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="436" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img37.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+abstraction = {Module::atom(),InitArg::term()}
+\end{lstlisting}">
+<BR>
+Abstraction implementation (see Section&nbsp;<A HREF="node24.html#abstractions">3.4</A> for details).
+The default abstraction preserves all properties of the states
+and actions to which it is applied.
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="379" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img38.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+table = {Module::atom(),InitArg::term()}
+\end{lstlisting}">
+<BR>
+State table implementation (see Section&nbsp;<A HREF="node25.html#tables">3.5</A> for details).
+The default table hashes on the stored states, but
+does not store transitions.
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="378" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img39.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+stack = {Module::atom(),InitArg::term()}
+\end{lstlisting}">
+<BR>
+Stack implementation (see Section&nbsp;<A HREF="node26.html#stacks">3.6</A> for details).
+The default stack implementation is @mce_stack_list@.
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="417" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img40.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+scheduler = {Module::atom(),InitArg::term()}
+\end{lstlisting}">
+<BR>
+A scheduler determines which transitions are taken (in simulation
+mode, see Section&nbsp;<A HREF="node27.html#schedulers">3.7</A> for details).
+The default scheduler (@mce_sched_rnd@)
+selects randomly a new transition.
+</LI>
+</UL>
+
+<P>
+There are also a number of fields, which when specified,
+can change the behaviour of state space exploration algorithms
+and the McErlang runtime system.
+
+<UL>
+<LI>
+<BR>
+<IMG
+ WIDTH="347" HEIGHT="12" ALIGN="BOTTOM" BORDER="0"
+ SRC="img41.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+sim_external_world = true() \vert false()
+\end{lstlisting}">
+<BR>
+If this flag is set the model checker will
+interface with the external world in simulation mode (i.e.,
+will receive messages sent from other processes outside the simulation).
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="157" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img42.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+pathLimit = int()
+\end{lstlisting}">
+<BR>
+Limit execution paths to a maximum depth (not set by default).
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="252" HEIGHT="12" ALIGN="BOTTOM" BORDER="0"
+ SRC="img43.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+shortest = true() \vert false()
+\end{lstlisting}">
+<BR>
+If the flag is set tries to compute the shortest path to failure
+(default false).
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="262" HEIGHT="12" ALIGN="BOTTOM" BORDER="0"
+ SRC="img44.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+terminate = true() \vert false()
+\end{lstlisting}">
+<BR>
+If set, the runtime system will randomly terminate processes
+(default false).
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="291" HEIGHT="12" ALIGN="BOTTOM" BORDER="0"
+ SRC="img45.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+notice_exits = true() \vert false()
+\end{lstlisting}">
+<BR>
+Warn when a process terminates abnormally due to an uncaught exception
+(default true).
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="290" HEIGHT="12" ALIGN="BOTTOM" BORDER="0"
+ SRC="img46.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+fail_on_exit = true() \vert false()
+\end{lstlisting}">
+<BR>
+Stop a model checking run if a process
+terminates abnormally due to an uncaught exception
+(default true).
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="347" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img47.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+is_infinitely_fast = true() \vert false()
+\end{lstlisting}">
+<BR>
+Prohibits (non-zero) timeouts (caused by @after@ clauses in
+@receive@ statements) from occurring if
+non-timeout transitions are enabled.
+This corresponds to the assumption that the system
+is infinitely fast (default false).
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="280" HEIGHT="12" ALIGN="BOTTOM" BORDER="0"
+ SRC="img48.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+sim_actions = true() \vert false()
+\end{lstlisting}">
+<BR>
+Print actions that occur during a simulation run (using the debugger or
+the algorithm @mce_alg_simulation@)
+(default false).
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="245" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img49.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+seed = {int(),int(),int()}
+\end{lstlisting}">
+<BR>
+Specify the initial seed (used by the randomised scheduler).
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="309" HEIGHT="12" ALIGN="BOTTOM" BORDER="0"
+ SRC="img50.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+record_actions = true() \vert false()
+\end{lstlisting}">
+<BR>
+Record seen actions during a model checking run
+(default true).
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="233" HEIGHT="12" ALIGN="BOTTOM" BORDER="0"
+ SRC="img51.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+random = true() \vert false()
+\end{lstlisting}">
+<BR>
+Randomize the order of transitions. This option
+is typically used when 
+using a safety or liveness model checking algorithm, as the specified scheduler
+(using scheduler=) is not used for such algorithms
+(default false).
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="167" HEIGHT="12" ALIGN="BOTTOM" BORDER="0"
+ SRC="img52.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+time_limit = int()
+\end{lstlisting}">
+<BR>
+Stops model checking after the time limit on
+the running time of the verification, specified in seconds,
+has been reached (default unlimited), with an inconclusive result.
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="204" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img53.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+rpc = true() \vert false()
+\end{lstlisting}">
+<BR>
+Support for the rpc module re-implementation in McErlang
+(default false).
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="271" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img54.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+small_pids = true() \vert false()
+\end{lstlisting}">
+<BR>
+Controls whether McErlang tries to aggressively reuse process identifiers
+as soon as possible. Such reuse is costly in terms of execution speed,
+but generally necessary to obtain finite models during model checking.
+Default true for model checking algorithms, and
+false for simulation algorithms.
+</LI>
+</UL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html293"
+  HREF="node17.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html289"
+  HREF="node15.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html283"
+  HREF="node15.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html291"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html294"
+  HREF="node17.html">State Space Traversal Algorithms</A>
+<B> Up:</B> <A NAME="tex2html290"
+  HREF="node15.html">Running McErlang</A>
+<B> Previous:</B> <A NAME="tex2html284"
+  HREF="node15.html">Running McErlang</A>
+ &nbsp; <B>  <A NAME="tex2html292"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2010-07-05
+</ADDRESS>
+</BODY>
+</HTML>

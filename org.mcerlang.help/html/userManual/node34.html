@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Writing LTL Properties</TITLE>
+<META NAME="description" CONTENT="Writing LTL Properties">
+<META NAME="keywords" CONTENT="userManual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="userManual.css">
+
+<LINK REL="next" HREF="node35.html">
+<LINK REL="previous" HREF="node33.html">
+<LINK REL="up" HREF="node33.html">
+<LINK REL="next" HREF="node35.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html508"
+  HREF="node35.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html504"
+  HREF="node33.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html498"
+  HREF="node33.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html506"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html509"
+  HREF="node35.html">Interfacing with B&#252;chi Automatons</A>
+<B> Up:</B> <A NAME="tex2html505"
+  HREF="node33.html">Ltl2Buchi: Translation LTL Properties</A>
+<B> Previous:</B> <A NAME="tex2html499"
+  HREF="node33.html">Ltl2Buchi: Translation LTL Properties</A>
+ &nbsp; <B>  <A NAME="tex2html507"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00051000000000000000"></A>
+<A NAME="module_ltl"></A>
+<BR>
+Writing LTL Properties
+</H2>
+LTL properties are composed using the module ltl.
+The following combinators are available:
+<BR>
+<IMG
+ WIDTH="425" HEIGHT="318" ALIGN="BOTTOM" BORDER="0"
+ SRC="img108.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+ltl() = ltrue()
+\vert lfalse()
+\vert pro...
+... atom():atom()/int()
+\vert {atom(),atom()}
+\vert {var,atom()}
+\end{lstlisting}">
+<BR>
+
+<P>
+Note that we permit variables, denoted by a tuple @var,atom()@,
+in the specification of a proposition. Such variables may be instantiated
+at runtime.
+
+<P>
+There is also a LTL parser which given a string argument, 
+accepts the following language:
+<BR><P></P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<!-- MATH
+ \begin{displaymath}
+\begin{array}{rcl}
+\mathit{formula} & ::= & \mbox{\lstinline@(@} \mathit{formula} \mbox{\lstinline@)@} \\
+     & | & \mathit{proposition} \\
+     & | & \mathit{formula} \;\mbox{\lstinline@until@}\; \mathit{formula} \\
+     & | & \mbox{\lstinline@always@}\; \mathit{formula} \\
+     & | & \mbox{\lstinline@next@}\; \mathit{formula} \\
+     & | & \mbox{\lstinline@eventually@}\; \mathit{formula} \\
+     & | & \mathit{formula} \;\mbox{\lstinline@or@}\; \mathit{formula} \\
+     & | & \mathit{formula} \;\mbox{\lstinline@and@}\; \mathit{formula} \\
+     & | & \mbox{\lstinline@not@}\; \mathit{formula} \\
+     & | & \mathit{formula} \;\mbox{\lstinline@release@}\; \mathit{formula} \\
+     & | & \mathit{formula} \;\mbox{\lstinline@implies@}\; \mathit{formula} \\
+     & | & \mathit{formula} \;\mbox{\lstinline@equivalent@}\; \mathit{formula}\\
+     & | & \mbox{\lstinline@true@} \\
+     & | & \mbox{\lstinline@false@}\\
+\\
+\mathit{proposition} & ::= & \mbox{\lstinline@fun@}\; \mathit{atom} \mbox{\lstinline@:@} \mathit{atom} \mbox{\lstinline@/@} integer\\
+            & | &   \mbox{\lstinline@\{@} \mathit{atom} \mbox{\lstinline@,@} \mathit{atom} \mbox{\lstinline@\}@}\\
+            & | &   \mathit{var}\\
+\end{array}
+\end{displaymath}
+ -->
+
+<IMG
+ WIDTH="343" HEIGHT="350" BORDER="0"
+ SRC="img109.png"
+ ALT="\begin{displaymath}
+\begin{array}{rcl}
+\mathit{formula} &amp; ::= &amp; \mbox{\lstinline...
+...\mbox{\lstinline@\}@}\\
+&amp; \vert &amp; \mathit{var}\\
+\end{array}\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+As in normal Erlang, a variable @var@ begins with an uppercase
+letter.
+The binding power of the LTL operators range, from looser to tighter,
+@implies@, @equivalent@, @and@, @or@, @until@, @release@, @eventually@, @always@,
+@next@, @not@.
+Apart from writing the operators in textual form (e.g., @always@),
+the standard abbreviations and alternatives are available
+(e.g., @G@,@[]@).
+
+<P>
+<BR><HR>
+<ADDRESS>
+
+2010-07-05
+</ADDRESS>
+</BODY>
+</HTML>

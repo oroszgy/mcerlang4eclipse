@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Tables</TITLE>
+<META NAME="description" CONTENT="Tables">
+<META NAME="keywords" CONTENT="userManual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="userManual.css">
+
+<LINK REL="next" HREF="node26.html">
+<LINK REL="previous" HREF="node24.html">
+<LINK REL="up" HREF="node15.html">
+<LINK REL="next" HREF="node26.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html401"
+  HREF="node26.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html397"
+  HREF="node15.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html391"
+  HREF="node24.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html399"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html402"
+  HREF="node26.html">Stacks</A>
+<B> Up:</B> <A NAME="tex2html398"
+  HREF="node15.html">Running McErlang</A>
+<B> Previous:</B> <A NAME="tex2html392"
+  HREF="node24.html">Abstractions</A>
+ &nbsp; <B>  <A NAME="tex2html400"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00045000000000000000"></A>
+<A NAME="tables"></A>
+<BR>
+Tables
+</H2>
+
+<P>
+Tables records encountered
+program states (typically using a hash table).
+The following tables are implemented:
+
+<UL>
+<LI>
+<BR>
+<IMG
+ WIDTH="133" HEIGHT="12" ALIGN="BOTTOM" BORDER="0"
+ SRC="img80.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+mce_table_hash
+\end{lstlisting}">
+<BR>
+implements a hash table using an Erlang @ets@ table.
+
+<P>
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="237" HEIGHT="12" ALIGN="BOTTOM" BORDER="0"
+ SRC="img81.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+mce_table_hashWithActions
+\end{lstlisting}">
+<BR>
+implements a hash table using an Erlang @dict@ data
+structure, also storing actions between states.
+
+<P>
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="162" HEIGHT="12" ALIGN="BOTTOM" BORDER="0"
+ SRC="img82.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+mce_table_bitHash
+\end{lstlisting}">
+<BR>
+implements a hash table where states are hashed into
+an integer value, and there is no collision handling.
+That the actual states themselves are not stored in
+the table, only a bit indicating whether the table
+entry contains an element or not.
+Note that this algorithm is not currently
+available under Windows as it relies on a HiPE private function
+for efficiency,
+which is not yet implemented on that operating system.
+
+<P>
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="210" HEIGHT="12" ALIGN="BOTTOM" BORDER="0"
+ SRC="img83.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+mce_table_hash_bounded
+\end{lstlisting}">
+<BR>
+implements a hash table with a bounded maximum 
+size. If during verification
+the size of the hash table has to be increased, 
+verification stops and McErlang returns an inconclusive result.
+</LI>
+</UL>
+
+<P>
+<BR><HR>
+<ADDRESS>
+
+2010-07-05
+</ADDRESS>
+</BODY>
+</HTML>

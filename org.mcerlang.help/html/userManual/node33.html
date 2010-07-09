@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Ltl2Buchi: Translation LTL Properties to B&#252;chi Automatons</TITLE>
+<META NAME="description" CONTENT="Ltl2Buchi: Translation LTL Properties to B&#252;chi Automatons">
+<META NAME="keywords" CONTENT="userManual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="userManual.css">
+
+<LINK REL="next" HREF="node36.html">
+<LINK REL="previous" HREF="node15.html">
+<LINK REL="up" HREF="userManual.html">
+<LINK REL="next" HREF="node34.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html494"
+  HREF="node34.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html490"
+  HREF="userManual.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html484"
+  HREF="node32.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html492"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html495"
+  HREF="node34.html">Writing LTL Properties</A>
+<B> Up:</B> <A NAME="tex2html491"
+  HREF="userManual.html">McErlang User Manual <SUP>1</SUP></A>
+<B> Previous:</B> <A NAME="tex2html485"
+  HREF="node32.html">Limitations</A>
+ &nbsp; <B>  <A NAME="tex2html493"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00050000000000000000"></A>
+<A NAME="Ltl2buchi"></A>
+<BR>
+Ltl2Buchi: Translation LTL Properties to B&#252;chi Automatons
+</H1>
+
+<P>
+The Ltl2Buchi tool, due to Hans Svensson at the IT University of
+Gothenburg, is used to translate LTL formulas into B&#252;chi automata.
+
+<P>
+These are commands available in the
+command loop of the model checker,
+in addition to the normal Erlang
+functions.
+
+<P>
+The following functions are available in the module
+@mce_ltl_parse@
+for translating LTL formulas into B&#252;chi automatons:
+
+<UL>
+<LI>
+<BR>
+<IMG
+ WIDTH="261" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img103.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+string(S::string()) -&gt; ltl()
+\end{lstlisting}">
+<BR>
+Parses an LTL formula.
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="557" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img104.png"
+ ALT="\begin{lstlisting}[language=erlang]
+ltl_string2module(S::string(),FileName::string()) -&gt; atom()
+\end{lstlisting}">
+<BR>
+Parses an LTL formula, converts the LTL formula into a B&#252;chi automaton,
+and stores the automaton in @FileName@. Returns
+the name of the generated module.
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="643" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img105.png"
+ ALT="\begin{lstlisting}[language=erlang]
+ltl_string2module_and_load(S::string(),ModuleName::atom()) -&gt; atom()
+\end{lstlisting}">
+<BR>
+Parses an LTL formula, converts the LTL formula into a B&#252;chi automaton,
+and stores the automaton in a temporary location. Returns
+the name of the generated module (@ModuleName@).
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="462" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img106.png"
+ ALT="\begin{lstlisting}[language=erlang]
+ltl2module(L::ltl(),FileName::string()) -&gt; atom()
+\end{lstlisting}">
+<BR>
+Converts the LTL formula into a B&#252;chi automaton,
+and stores the automaton in @FileName@. Returns
+the name of the generated module.
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="576" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img107.png"
+ ALT="\begin{lstlisting}[language=erlang]
+ltl2module_and_load(S::string(),ModuleName::atom()) -&gt; atom()
+\end{lstlisting}">
+<BR>
+Converts the LTL formula into a B&#252;chi automaton,
+and stores the automaton in a temporary location. Returns
+the name of the generated module (@ModuleName@).
+</LI>
+</UL>
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html496"
+  HREF="node34.html">Writing LTL Properties</A>
+<LI><A NAME="tex2html497"
+  HREF="node35.html">Interfacing with B&#252;chi Automatons</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html494"
+  HREF="node34.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html490"
+  HREF="userManual.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html484"
+  HREF="node32.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html492"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html495"
+  HREF="node34.html">Writing LTL Properties</A>
+<B> Up:</B> <A NAME="tex2html491"
+  HREF="userManual.html">McErlang User Manual <SUP>1</SUP></A>
+<B> Previous:</B> <A NAME="tex2html485"
+  HREF="node32.html">Limitations</A>
+ &nbsp; <B>  <A NAME="tex2html493"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2010-07-05
+</ADDRESS>
+</BODY>
+</HTML>

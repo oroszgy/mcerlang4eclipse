@@ -1,0 +1,267 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Listing of Available Algorithms</TITLE>
+<META NAME="description" CONTENT="Listing of Available Algorithms">
+<META NAME="keywords" CONTENT="userManual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="userManual.css">
+
+<LINK REL="previous" HREF="node18.html">
+<LINK REL="up" HREF="node17.html">
+<LINK REL="next" HREF="node20.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html329"
+  HREF="node20.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html325"
+  HREF="node17.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html321"
+  HREF="node18.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html327"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html330"
+  HREF="node20.html">Monitors</A>
+<B> Up:</B> <A NAME="tex2html326"
+  HREF="node17.html">State Space Traversal Algorithms</A>
+<B> Previous:</B> <A NAME="tex2html322"
+  HREF="node18.html">Algorithm Termination</A>
+ &nbsp; <B>  <A NAME="tex2html328"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION00042200000000000000">
+Listing of Available Algorithms</A>
+</H3>
+
+<P>
+<A NAME="algorithms"></A>
+<UL>
+<LI>
+<BR>
+<IMG
+ WIDTH="171" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img58.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+mce_alg_simulation
+\end{lstlisting}">
+<BR>
+This algorithm implements a basic simulation algorithm. In every
+encountered program 
+state only a single transition is chosen.
+During the simulation a safety program monitor is checked.
+
+<P>
+If you wish to allow your program to communicate with the 
+outside McErlang (accept messages sent by other processes)
+the @sim_external_world@ option in @mce_opts@ 
+should be set to true. An example specific scheduler can be specified
+using the @scheduler@ field in @mce_opts@.
+This algorithm does not require any initial argument.
+
+<P>
+Suppose as an example that we want to run the @example:start@
+example in Section&nbsp;<A HREF="node5.html#sect_example">1.3</A> using the simulation algorithm:
+<BR>
+<IMG
+ WIDTH="579" HEIGHT="354" ALIGN="BOTTOM" BORDER="0"
+ SRC="img59.png"
+ ALT="\begin{lstlisting}
+&gt; mcerl
+Erlang (BEAM) emulator version 5.6.5 [source] [smp:4]...
+...ion terminated normally
+Access result using mce:result()
+ok
+3&gt;
+\end{lstlisting}">
+<BR>
+Aha, no error this time. This is because we only explored one execution trace.
+Note that we in the first line
+read in the record definition of mce_opts, so that we are allowed
+to use the syntax @#mce_optsprogram=...@ in the Erlang shell.
+
+<P>
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="152" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img60.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+mce_alg_debugger
+\end{lstlisting}">
+<BR>
+Runs the debugger on the selected program, see Section&nbsp;<A HREF="node28.html#debugger">3.8</A>.
+This algorithm does not require any initial argument.
+
+<P>
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="133" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img61.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+mce_alg_safety
+\end{lstlisting}">
+<BR>
+Checks the specified monitor, which <EM>must</EM> be of type @safety@,
+on all program states of the program. 
+Note that the option @sim_external_world@
+has no effect (the algorithm makes the ``closed world assumption'',
+whereby no message ever arrives from outside the specified program).
+This algorithm does not require any initial argument.
+
+<P>
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="132" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img62.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+mce_alg_buechi
+\end{lstlisting}">
+<BR>
+Checks the specified monitor, which <EM>must</EM> be of type @buechi@,
+on the program. 
+Note that the option @sim_external_world@
+has no effect (the algorithm makes the ``closed world assumption'',
+whereby no message ever arrives from outside the specified program).
+This algorithm does accept an initial argument,
+@process_fairness,bool()@, which specifies that the
+program should be checked
+under a process fairness assumption if the @bool()@
+option is true (the default value of the parameter is true).
+
+<P>
+</LI>
+<LI>
+<BR>
+<IMG
+ WIDTH="218" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img63.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+mce_alg_safety_parallel
+\end{lstlisting}">
+<BR>
+Checks the specified monitor, which <EM>must</EM> be of type @safety@,
+on all program states of the program.
+This algorithm makes use of the symmetric multiprocessing implementation
+of Erlang to use, potentially, multiple processors or cores
+to speed up the model checking run.
+It accepts an initial argument specifying the number
+of Erlang process schedulers to run (there may be more process
+schedulers running that the number of processor elements available).
+An example:
+<BR>
+<IMG
+ WIDTH="558" HEIGHT="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="img64.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+mce:start( ...">
+<BR>
+checks the @example:start@ program using 4 process
+schedulers.
+Note that the option @sim_external_world@
+has no effect (the algorithm makes the ``closed world assumption'',
+whereby no message ever arrives from outside the specified program).
+</LI>
+<LI><A NAME="mce_alg_combine"></A>
+<BR>
+<IMG
+ WIDTH="142" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img65.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+mce_alg_combine
+\end{lstlisting}">
+<BR>
+This algorithm provides a method to combine to other state space
+exploration algorithms. It accepts a parameter which enumerates
+the two different sub-algorithms. An example:
+<BR>
+<IMG
+ WIDTH="627" HEIGHT="127" ALIGN="BOTTOM" BORDER="0"
+ SRC="img66.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+algorithm=
+{mce_alg_combine,
+{ ...">
+<BR>
+The example specifies that first a simulation algorithm should be run,
+using a custom scheduler @locker_sched@, and when the simulation
+terminates (successfully), the safety model checking algorithm 
+@mce_alg_safety@ algorithm should be run.
+
+<P>
+In practise this algorithm can be used to throw away an initial segment
+of the behaviour of a program which is deemed uninteresting, to permit
+focusing on a latter part. A particular example is to check only a system
+after when it is has stabilised after the completion
+of the starting-up phase (perhaps programmed
+using the OTP supervisor behaviour @gen_supervisor@). It is
+a method to save memory space.
+</LI>
+</UL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html329"
+  HREF="node20.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html325"
+  HREF="node17.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html321"
+  HREF="node18.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html327"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html330"
+  HREF="node20.html">Monitors</A>
+<B> Up:</B> <A NAME="tex2html326"
+  HREF="node17.html">State Space Traversal Algorithms</A>
+<B> Previous:</B> <A NAME="tex2html322"
+  HREF="node18.html">Algorithm Termination</A>
+ &nbsp; <B>  <A NAME="tex2html328"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2010-07-05
+</ADDRESS>
+</BODY>
+</HTML>

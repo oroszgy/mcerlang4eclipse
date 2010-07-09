@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Verification methodology</TITLE>
+<META NAME="description" CONTENT="Verification methodology">
+<META NAME="keywords" CONTENT="tutorial">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="tutorial.css">
+
+<LINK REL="previous" HREF="node12.html">
+<LINK REL="up" HREF="node10.html">
+<LINK REL="next" HREF="node14.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html153"
+  HREF="node14.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html151"
+  HREF="node10.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html147"
+  HREF="node12.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html154"
+  HREF="node14.html">Model Checking a Simple</A>
+<B> Up:</B> <A NAME="tex2html152"
+  HREF="node10.html">Model checking using B&#252;chi</A>
+<B> Previous:</B> <A NAME="tex2html148"
+  HREF="node12.html">Using probe states to</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00073000000000000000">
+Verification methodology</A>
+</H2>
+
+<P>
+A schema of the verification methodology used in this example is shown
+in fig. <A HREF="#methodology"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="/usr/share/latex2html/icons/crossref.png"></A>. 
+
+<DIV ALIGN="CENTER"><A NAME="methodology"></A><A NAME="306"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
+verification schema</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+[width=0.5]methodology
+   
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+To summarize, the steps we have followed to check that a program
+verifies a property are the following:
+
+<P>
+
+<UL>
+<LI>Express the property in a suitable formalism, in this case, an
+    LTL formula with some predicates. This is done by hand.
+</LI>
+<LI>Use the LTL2Buchi tool to translate the LTL property to a
+    buchi automaton implemented as a monitor
+</LI>
+<LI>Annotate, by hand, the program with probe actions and/or probe 
+states<A NAME="tex2html6"
+  HREF="footnode.html#foot311"><SUP><SPAN CLASS="arabic">3</SPAN></SUP></A>
+</LI>
+<LI>Invoke the McErlang model checker with the annotated program,
+    the predicates, and the monitor.
+</LI>
+</UL>
+
+<P>
+The result provided by the model checker will be either a positive
+result if the property holds or a counterexample (an execution trace)
+if the property does not hold.
+
+<P>
+<BR><HR>
+<ADDRESS>
+Orosz György
+2010-06-02
+</ADDRESS>
+</BODY>
+</HTML>

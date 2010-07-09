@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Observational Power of Monitors</TITLE>
+<META NAME="description" CONTENT="Observational Power of Monitors">
+<META NAME="keywords" CONTENT="userManual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="userManual.css">
+
+<LINK REL="next" HREF="node23.html">
+<LINK REL="previous" HREF="node20.html">
+<LINK REL="up" HREF="node20.html">
+<LINK REL="next" HREF="node22.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html356"
+  HREF="node22.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html352"
+  HREF="node20.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html346"
+  HREF="node20.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html354"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html357"
+  HREF="node22.html">Using probe states to</A>
+<B> Up:</B> <A NAME="tex2html353"
+  HREF="node20.html">Monitors</A>
+<B> Previous:</B> <A NAME="tex2html347"
+  HREF="node20.html">Monitors</A>
+ &nbsp; <B>  <A NAME="tex2html355"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION00043100000000000000">
+Observational Power of Monitors</A>
+</H3>
+The above example only inspects the program
+state parameter to the @stateChange@ function.
+The application programming interface for examining program states
+is stable with regards to examining invariant state components
+(process mailboxes, process status, node names, 
+process dictionaries, etc) but there is currently no well-defined
+mechanism for retrieving the value of program variables from 
+a program state<A NAME="tex2html5"
+  HREF="footnode.html#foot390"><SUP><SPAN CLASS="arabic">3</SPAN></SUP></A>.
+
+<P>
+An alternative is to instead inspect the actions a program causes.
+The third parameter to @stateChange@ is the verification stack,
+which contains the actions of the programs (if the 
+field @record_actions@ in @mce_opts@ is not false).
+The actions that the program performed after leaving the program state,
+and before entering the program state now checked is returned
+as a list by the following code fragment:
+<BR>
+<IMG
+ WIDTH="511" HEIGHT="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="img70.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+{Entry,_} = mce_behav_stackOps:pop(VerificationStack),
+Entry ...">
+<BR>
+
+<P>
+The McErlang modules @mce_erl@ and
+@mce_erl_actions@ contains application interfaces for
+examining program actions.
+
+<P>
+A convenient means to determine if a program has performed
+a certain action is to instrument said program with synthetic
+probe actions, and during model checking determine if these
+synthetic actions are present. 
+A program can cause a probe action by calling the 
+@mce_erl:probe(Label::term(),Term::term())@ or
+@mce_erl:probe(Label::term())@ functions
+(where @Label@ and @Term@ are general terms).
+
+<P>
+As an example we show a fragment of a client that allocates resources
+by sending a request message to a (@gen_server@),
+and then releasing the resource by sending a new message:
+<BR>
+<IMG
+ WIDTH="311" HEIGHT="51" ALIGN="BOTTOM" BORDER="0"
+ SRC="img71.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+gen_server:call(Locker, request),
+mce_erl:probe(inUse),
+gen_server:call(Locker, release)
+\end{lstlisting}">
+<BR>
+The property we want to establish is mutual exclusion,
+i.e., that there are not two clients simultaneously accessing 
+the shared resource. To do this we instrument the client 
+to perform a probe action whenever a resource has been granted,
+and before it is has been released.
+
+<P>
+We can then check for the existence of a ``mutual exclusion failure''
+using the following safety monitor fragment:
+<BR>
+<IMG
+ WIDTH="598" HEIGHT="433" ALIGN="BOTTOM" BORDER="0"
+ SRC="img72.png"
+ ALT="\begin{lstlisting}[language=Erlang]
+init(State) -&gt; {ok,init}.
+\par
+stateChange(_...
+...&gt;
+mce_utils:findret(fun mce_erl:match_probe_label/1, Actions).
+\end{lstlisting}">
+<BR>
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html358"
+  HREF="node22.html">Using probe states to write properties</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html356"
+  HREF="node22.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html352"
+  HREF="node20.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html346"
+  HREF="node20.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html354"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html357"
+  HREF="node22.html">Using probe states to</A>
+<B> Up:</B> <A NAME="tex2html353"
+  HREF="node20.html">Monitors</A>
+<B> Previous:</B> <A NAME="tex2html347"
+  HREF="node20.html">Monitors</A>
+ &nbsp; <B>  <A NAME="tex2html355"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2010-07-05
+</ADDRESS>
+</BODY>
+</HTML>
