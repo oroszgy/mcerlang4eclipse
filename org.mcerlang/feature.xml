@@ -2,7 +2,7 @@
 <feature
       id="org.mcerlang"
       label="McErlang for Eclipse"
-      version="0.1.0.qualifier"
+      version="0.1.5.qualifier"
       provider-name="ProTest Consortium">
 
    <description>
@@ -82,6 +82,8 @@ THE SOFTWARE.
       <import plugin="org.eclipse.jface.text" version="3.5.2" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.editors" version="3.5.0" match="greaterOrEqual"/>
       <import plugin="org.erlide.core" version="0.7.5" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.help" version="3.4.1" match="greaterOrEqual"/>
+      <import plugin="org.mcerlang.integration" version="0.1.0" match="greaterOrEqual"/>
    </requires>
 
    <plugin
@@ -93,6 +95,13 @@ THE SOFTWARE.
 
    <plugin
          id="org.protest.integration.lib"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.mcerlang.help"
          download-size="0"
          install-size="0"
          version="0.0.0"

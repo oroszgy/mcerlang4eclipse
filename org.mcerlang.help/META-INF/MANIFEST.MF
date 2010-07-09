@@ -7,6 +7,7 @@ Bundle-Activator: org.mcerlang.help.Activator
 Bundle-Vendor: ProTest Consortium
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.help;bundle-version="3.4.1"
+ org.eclipse.help;bundle-version="3.4.1",
+ org.mcerlang.integration;bundle-version="0.1.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
